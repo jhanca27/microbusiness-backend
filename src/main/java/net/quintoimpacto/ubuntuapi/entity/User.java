@@ -31,7 +31,7 @@ public class User {
     @ColumnDefault("false")
     private boolean deleted;
 
-    private String rol;
-    private String telefono;
+    private String role;
+    private String phone;
 
 }
