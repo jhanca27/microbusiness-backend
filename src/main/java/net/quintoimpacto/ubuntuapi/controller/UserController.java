@@ -1,5 +1,6 @@
 package net.quintoimpacto.ubuntuapi.controller;
 
+import net.quintoimpacto.ubuntuapi.dto.UserDTO;
 import net.quintoimpacto.ubuntuapi.entity.User;
 import net.quintoimpacto.ubuntuapi.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/")
-    public ResponseEntity<User> save(@RequestBody User user) {
-        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+    public ResponseEntity<User> save(@RequestBody UserDTO userDTO) {
+        return new ResponseEntity<>(userService.save(userDTO), HttpStatus.CREATED);
     }
 }

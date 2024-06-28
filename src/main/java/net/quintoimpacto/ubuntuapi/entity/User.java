@@ -31,7 +31,10 @@ public class User {
     @ColumnDefault("false")
     private boolean deleted;
 
+    @ColumnDefault("'admin'")
     private String role;
+
+    @Column(nullable = false)
     private String phone;
 
 }
