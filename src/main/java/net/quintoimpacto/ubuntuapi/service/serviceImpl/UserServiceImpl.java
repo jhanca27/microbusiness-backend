@@ -20,6 +20,9 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User save(UserDTO userDTO) {
         User user = userMapper.userEntity2userDTO(userDTO);
+        if (user.getRole() == null) {
+            user.setRole("admin");
+        }
         return userRepository.save(user);
     }
 }

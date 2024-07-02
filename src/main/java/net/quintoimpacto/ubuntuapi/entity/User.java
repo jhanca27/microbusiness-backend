@@ -28,10 +28,10 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @ColumnDefault("false")
+    @Column(columnDefinition = "boolean default false")
     private boolean deleted;
 
-    @ColumnDefault("'admin'")
+    @Column(columnDefinition = "varchar(10) default 'admin'")
     private String role;
 
     @Column(nullable = false)
