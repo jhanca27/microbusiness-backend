@@ -1,5 +1,6 @@
 package net.quintoimpacto.ubuntuapi.service.serviceImpl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -56,5 +57,12 @@ public class MicroBusinessImpl implements IMicroBusinessService{
         return microBusinesses.stream()
                 .map(microBusiness -> modelMapper
                         .map(microBusiness, MicroBusinessCategoryDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MicroBusinessCategoryDto> getAllCategory() {
+        return Arrays.stream(Category.values())
+                .map(category -> modelMapper
+                        .map(category, MicroBusinessCategoryDto.class)).collect(Collectors.toList());
     }
 }
