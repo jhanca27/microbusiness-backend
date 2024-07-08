@@ -22,4 +22,15 @@ public class UserServiceImpl implements IUserService {
         }
         return userRepository.save(user);
     }
+
+    @Override
+    public String updateStatus(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null){
+            return "User not found";
+        }
+        user.setDeleted(!user.isDeleted());
+        userRepository.save(user);
+        return "User status updated";
+    }
 }
