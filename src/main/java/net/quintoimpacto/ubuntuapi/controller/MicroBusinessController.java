@@ -1,7 +1,10 @@
 package net.quintoimpacto.ubuntuapi.controller;
 
+import java.util.List;
 import java.util.Optional;
 
+import net.quintoimpacto.ubuntuapi.dto.MicroBusinessCategoryDto;
+import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -49,6 +52,10 @@ public class MicroBusinessController {
     public ResponseEntity<?> searhByName(@RequestParam("search") String name) {
         var setMicroBusinessDTO = microBusinessService.findByName(name);
         return new ResponseEntity<>(setMicroBusinessDTO, HttpStatus.valueOf(200));
+    }
+    @GetMapping("/Category/{category}")
+    public ResponseEntity<List<MicroBusinessCategoryDto>> searchCategory(@PathVariable Category category){
+        return ResponseEntity.status(HttpStatus.OK).body(microBusinessService.findByCategory(category));
     }
     
 }
