@@ -14,12 +14,9 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserRepository userRepository;
 
-    @Autowired
-    private UserMapper userMapper;
-
     @Override
     public User save(UserDTO userDTO) {
-        User user = userMapper.userEntity2userDTO(userDTO);
+        User user = UserMapper.toUserEntity(userDTO);
         if (user.getRole() == null) {
             user.setRole("admin");
         }
