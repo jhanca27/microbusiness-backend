@@ -24,8 +24,7 @@ public class Province {
     @NotNull(message = "The province name cannot be null")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
-    @JsonIgnore
     private Country country;
 }
