@@ -1,9 +1,12 @@
 package net.quintoimpacto.ubuntuapi.service.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import net.quintoimpacto.ubuntuapi.dto.MicroBusinessCategoryDto;
+import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ public class MicroBusinessImpl implements IMicroBusinessService{
 
     @Autowired
     private IMicroBusinessRepository microBusinessRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public void save(MicroBusinessDTO microBusinessDTO) {
@@ -45,5 +50,11 @@ public class MicroBusinessImpl implements IMicroBusinessService{
                                                         .collect(Collectors.toSet());
     }
 
-   
+    @Override
+    public List<MicroBusinessCategoryDto> findByCategory(Category category) {
+        List<MicroBusiness> microBusinesses= microBusinessRepository.findByCategory(category);
+        return microBusinesses.stream()
+                .map(microBusiness -> modelMapper
+                        .map(microBusiness, MicroBusinessCategoryDto.class)).collect(Collectors.toList());
+    }
 }
