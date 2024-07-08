@@ -124,3 +124,25 @@ INSERT INTO users(id, first_name, last_name, email, phone) VALUES(8, 'Grace', 'M
 INSERT INTO users(id, first_name, last_name, email, phone) VALUES(9, 'Hank', 'Taylor', 'hank.taylor@example.com', '9998887777');
 INSERT INTO users(id, first_name, last_name, email, phone) VALUES(10, 'Ivy', 'Anderson', 'ivy.anderson@example.com', '2223334445');
 
+-- Insertar registros en la tabla micro_businesses
+
+INSERT INTO micro_businesses(name, description, more_information, category, province_id, user_id) VALUES("EcoGreen Solutions", "Sustainable environmental solutions", "Offering eco-friendly products and services", "SOCIAL_ECONOMY", 1, 1);
+
+INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("AgroHarvest Co.", "Innovative agricultural practices", "Promoting organic farming techniques", "AGROECOLOGY", 2, 2);
+
+INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("ConserveNature", "Protecting natural habitats", "Programs for wildlife conservation", "CONSERVATION", 3, 3);
+
+INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("Impact Innovators", "Business solutions for social good", "Consulting for sustainable development", "COMPANIES_IMPACT", 4, 4);
+
+INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("GreenThumb Gardens", "Urban gardening and farming", "Workshops and supplies for urban agriculture", "SOCIAL_ECONOMY", 5, 5);
+
+INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("BioFarm Enterprises", "Eco-friendly farming solutions", "Supporting local farmers with green technology", "AGROECOLOGY", 6, 6);
+
+INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("Wildlife Warriors", "Wildlife protection initiatives", "Education and advocacy for endangered species", "CONSERVATION", 7, 7);
+
+INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("Sustainable Futures", "Future-proof business practices", "Consulting for long-term sustainability", "COMPANIES_IMPACT", 8, 8);
+
+INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("Nature Nurturers", "Environmental care and awareness", "Campaigns to increase environmental consciousness", "SOCIAL_ECONOMY", 9, 9);
+
+INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("EcoFarm Solutions", "Advanced agricultural techniques", "Promoting sustainable farming methods", "AGROECOLOGY", 10, 10);
+

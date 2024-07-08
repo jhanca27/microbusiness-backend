@@ -1,5 +1,7 @@
 package net.quintoimpacto.ubuntuapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -22,7 +24,7 @@ public class Province {
     @NotNull(message = "The province name cannot be null")
     private String name;
 
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 }
