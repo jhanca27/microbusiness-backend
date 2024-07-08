@@ -23,7 +23,8 @@ public class Country {
 
     @NotNull(message = "Country name cannot be null")
     private String name;
-
+/* 
+    @Transient
     @OneToMany(mappedBy = "country",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Province> province;
+    private List<Province> province; */
 }

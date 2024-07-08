@@ -6,10 +6,15 @@ import java.util.List;
 
 import org.hibernate.annotations.DynamicInsert;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -53,7 +58,7 @@ public class MicroBusiness {
     private boolean managed;
 
     @NotNull(message = "Category cannot be null")
-    @NotBlank(message = "Category is mandatory")
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @Transient
@@ -70,10 +75,10 @@ public class MicroBusiness {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "country_id", nullable = false)
+    @JoinColumn(name = "country_id", nullable = true)
     private Country country;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id", nullable = false)
     private Province province;
 

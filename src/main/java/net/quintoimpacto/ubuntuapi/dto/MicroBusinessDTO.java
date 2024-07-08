@@ -1,14 +1,15 @@
 package net.quintoimpacto.ubuntuapi.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import net.quintoimpacto.ubuntuapi.entity.Country;
-import net.quintoimpacto.ubuntuapi.entity.Province;
-import net.quintoimpacto.ubuntuapi.entity.User;
+import lombok.NoArgsConstructor;
 import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MicroBusinessDTO {
   
     private Long id;
@@ -25,9 +26,9 @@ public class MicroBusinessDTO {
 
     private Category category;
 
-    private User user;
+    private String userFirst_name;
 
-    private Country country;
+    /* private Country country; */
 
-    private Province province;
+    private Long provinceId;
 }
