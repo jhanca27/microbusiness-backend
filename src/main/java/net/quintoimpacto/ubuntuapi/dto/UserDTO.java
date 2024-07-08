@@ -12,4 +12,6 @@ public class UserDTO {
     private String last_name;
     private String email;
     private String phone;
+    private boolean deleted;
+    private String role;
 }
