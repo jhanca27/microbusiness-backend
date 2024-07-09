@@ -19,4 +19,5 @@ public interface IMicroBusinessService {
 
     public Set<MicroBusinessDTO> findByName(String name);
     public List<MicroBusinessCategoryDto> findByCategory(Category category);
+    public List<MicroBusinessCategoryDto> getAllCategory();
 }

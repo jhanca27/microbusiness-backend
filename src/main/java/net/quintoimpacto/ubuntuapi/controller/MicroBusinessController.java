@@ -53,9 +53,14 @@ public class MicroBusinessController {
         var setMicroBusinessDTO = microBusinessService.findByName(name);
         return new ResponseEntity<>(setMicroBusinessDTO, HttpStatus.valueOf(200));
     }
-    @GetMapping("/Category/{category}")
+
+    @GetMapping("/category/{category}")
     public ResponseEntity<List<MicroBusinessCategoryDto>> searchCategory(@PathVariable Category category){
         return ResponseEntity.status(HttpStatus.OK).body(microBusinessService.findByCategory(category));
     }
-    
+
+    @GetMapping("/categories")
+    private ResponseEntity<List<MicroBusinessCategoryDto>> searchAllCategory(){
+        return ResponseEntity.status(HttpStatus.OK).body(microBusinessService.getAllCategory());
+    }
 }
