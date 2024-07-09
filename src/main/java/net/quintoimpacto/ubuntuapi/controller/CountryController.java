@@ -1,6 +1,6 @@
 package net.quintoimpacto.ubuntuapi.controller;
 
-import net.quintoimpacto.ubuntuapi.entity.Country;
+import net.quintoimpacto.ubuntuapi.dto.CountryDTO;
 import net.quintoimpacto.ubuntuapi.service.ICountryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,8 @@ public class CountryController {
     private ICountryService countryService;
 
     @GetMapping()
-    public ResponseEntity<List<Country>> getAll () {
-        List<Country> countries = countryService.getAllCountries();
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(countries);
+    public ResponseEntity<List<CountryDTO>> getAll () {
+        List<CountryDTO> countriesDTO = countryService.getAllCountries();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(countriesDTO);
     }
 }

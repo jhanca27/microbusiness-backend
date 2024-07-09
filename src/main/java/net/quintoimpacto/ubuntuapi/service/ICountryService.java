@@ -1,9 +1,10 @@
 package net.quintoimpacto.ubuntuapi.service;
 
-import net.quintoimpacto.ubuntuapi.entity.Country;
+
+import net.quintoimpacto.ubuntuapi.dto.CountryDTO;
 
 import java.util.List;
 
 public interface ICountryService {
-    public List<Country> getAllCountries();
+    public List<CountryDTO> getAllCountries();
 }
