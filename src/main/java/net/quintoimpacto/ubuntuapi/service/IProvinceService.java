@@ -2,8 +2,8 @@ package net.quintoimpacto.ubuntuapi.service;
 
 import net.quintoimpacto.ubuntuapi.dto.ProvinceDTO;
 
-import java.util.List;
+import java.util.Set;
 
 public interface IProvinceService {
-    public List<ProvinceDTO> getAllByCountry(Long id);
+    public Set<ProvinceDTO> findByName(String name);
 }
