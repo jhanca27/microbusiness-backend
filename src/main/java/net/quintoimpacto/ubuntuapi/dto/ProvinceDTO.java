@@ -10,5 +10,4 @@ import lombok.Setter;
 public class ProvinceDTO {
     private Long id;
     private String name;
-    private Long countryId;
 }

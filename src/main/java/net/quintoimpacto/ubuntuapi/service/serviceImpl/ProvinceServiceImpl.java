@@ -18,7 +18,9 @@ public class ProvinceServiceImpl implements IProvinceService {
 
     @Override
     public List<ProvinceDTO> getAllByCountry(Long id) {
-        List<Province> provinces = provinceRepository.findAll();
+        //List<Province> provinces = provinceRepository.getByCountryId(id);
+        List<Province> provinces = provinceRepository.findByCountryId(id);
+        //provinces.forEach(System.out::println);
         return provinces.stream().map(ProvinceMapper::toProvinceDTO).collect(Collectors.toList());
     }
 }

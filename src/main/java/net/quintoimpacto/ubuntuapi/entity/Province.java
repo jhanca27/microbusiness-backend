@@ -27,4 +27,12 @@ public class Province {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
+
+    @Override
+    public String toString() {
+        return "Province{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

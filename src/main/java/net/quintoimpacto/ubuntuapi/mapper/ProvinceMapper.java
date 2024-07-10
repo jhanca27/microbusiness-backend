@@ -13,7 +13,6 @@ public class ProvinceMapper {
         TypeMap<Province, ProvinceDTO> propertyMapper = modelMapper.createTypeMap(Province.class, ProvinceDTO.class);
         propertyMapper.addMapping(Province::getId, ProvinceDTO::setId);
         propertyMapper.addMapping(Province::getName, ProvinceDTO::setName);
-        propertyMapper.addMapping(Province::getCountry, ProvinceDTO::setCountryId);
         return propertyMapper.map(province);
     }
 }
