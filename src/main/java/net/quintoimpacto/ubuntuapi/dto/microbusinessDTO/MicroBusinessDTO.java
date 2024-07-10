@@ -30,7 +30,7 @@ public class MicroBusinessDTO {
 
     /* private Country country; */
 
-    private Long provinceId;
+    private String provinceName;
 
     private String provinceCountryName;
 }
