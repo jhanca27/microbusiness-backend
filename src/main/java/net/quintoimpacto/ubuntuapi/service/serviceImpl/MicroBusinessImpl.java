@@ -7,11 +7,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import net.quintoimpacto.ubuntuapi.dto.MicroBusinessCategoryDto;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessDTO;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessRegisterDTO;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessShowDto;
 import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import net.quintoimpacto.ubuntuapi.dto.MicroBusinessDTO;
+
 import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
 import net.quintoimpacto.ubuntuapi.repository.IMicroBusinessRepository;
 import net.quintoimpacto.ubuntuapi.service.IMicroBusinessService;
@@ -25,16 +28,16 @@ public class MicroBusinessImpl implements IMicroBusinessService{
     private ModelMapper modelMapper;
 
     @Override
-    public void save(MicroBusinessDTO microBusinessDTO) {
-        ModelMapper mapper = new ModelMapper();
-        var microBusiness = mapper.map(microBusinessDTO, MicroBusiness.class);
-        microBusinessRepository.save(microBusiness);
+    public MicroBusinessShowDto save(MicroBusinessRegisterDTO microBusinessDTO) {
+        var microBusiness = modelMapper.map(microBusinessDTO, MicroBusiness.class);
+        microBusiness = microBusinessRepository.save(microBusiness);
+        System.out.println(microBusiness);
+        return modelMapper.map(microBusiness,MicroBusinessShowDto.class);
     }
 
     @Override
     public void update(MicroBusinessDTO microBusinessDTO) {
-        ModelMapper mapper = new ModelMapper();
-        var microBusiness = mapper.map(microBusinessDTO, MicroBusiness.class);
+        var microBusiness = modelMapper.map(microBusinessDTO, MicroBusiness.class);
         microBusinessRepository.save(microBusiness);
     }
 
@@ -45,9 +48,8 @@ public class MicroBusinessImpl implements IMicroBusinessService{
 
     @Override
     public Set<MicroBusinessDTO> findByName(String name) {
-        ModelMapper mapper = new ModelMapper();
         return microBusinessRepository.findByNameContainingIgnoreCase(name).stream()
-                                                        .map(micro -> mapper.map(micro, MicroBusinessDTO.class))
+                                                        .map(micro -> modelMapper.map(micro, MicroBusinessDTO.class))
                                                         .collect(Collectors.toSet());
     }
 
