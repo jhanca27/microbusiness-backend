@@ -1,8 +1,6 @@
 package net.quintoimpacto.ubuntuapi.controller;
 
-import net.quintoimpacto.ubuntuapi.dto.MicroBusinessDTO;
 import net.quintoimpacto.ubuntuapi.dto.UserDTO;
-import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
 import net.quintoimpacto.ubuntuapi.entity.User;
 import net.quintoimpacto.ubuntuapi.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +22,12 @@ public class UserController {
         return new ResponseEntity<>(userService.save(userDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/status/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> updateStatus(@PathVariable Long id){
         String response = userService.updateStatus(id);
-        return ResponseEntity.ok(response);
+        if (response != null) {
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
     }
 }

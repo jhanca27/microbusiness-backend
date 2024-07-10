@@ -27,7 +27,7 @@ public class UserServiceImpl implements IUserService {
     public String updateStatus(Long id) {
         User user = userRepository.findById(id).orElse(null);
         if (user == null){
-            return "User not found";
+            return null;
         }
         user.setDeleted(!user.isDeleted());
         userRepository.save(user);
