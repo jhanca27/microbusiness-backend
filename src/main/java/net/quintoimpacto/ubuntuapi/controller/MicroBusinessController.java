@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import net.quintoimpacto.ubuntuapi.dto.MicroBusinessCategoryDto;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessDTO;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessRegisterDTO;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessShowDto;
 import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.quintoimpacto.ubuntuapi.dto.MicroBusinessDTO;
 import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
 import net.quintoimpacto.ubuntuapi.service.IMicroBusinessService;
 
@@ -30,9 +31,10 @@ public class MicroBusinessController {
     private IMicroBusinessService microBusinessService;
 
     @PostMapping("/")
-    public ResponseEntity<?> save(@RequestBody MicroBusinessDTO microBusinessDTO) {
-        microBusinessService.save(microBusinessDTO);
-        return new ResponseEntity<>("Microbusiness creado" , HttpStatus.CREATED);
+    public ResponseEntity<MicroBusinessShowDto> save(@RequestBody MicroBusinessRegisterDTO microBusinessDTO) {
+        System.out.println(microBusinessDTO);
+        var microBusiness = microBusinessService.save(microBusinessDTO);
+        return new ResponseEntity<>( microBusiness , HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
