@@ -20,9 +20,7 @@ public class MicroBusinessDTO {
 
     private String moreInformation;
 
-    private boolean deleted;
-
-    private boolean managed;
+    private String subTitle;
 
     private Category category;
 

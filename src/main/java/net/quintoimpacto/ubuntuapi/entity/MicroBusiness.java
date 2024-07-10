@@ -51,6 +51,8 @@ public class MicroBusiness {
 
     private String moreInformation;
 
+    private String subTitle;
+
     @Column(columnDefinition = "boolean default false")
     private boolean deleted;
 
