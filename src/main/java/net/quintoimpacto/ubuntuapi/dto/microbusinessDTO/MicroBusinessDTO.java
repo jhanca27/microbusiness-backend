@@ -22,7 +22,10 @@ public class MicroBusinessDTO {
 
     private String subTitle;
 
-    private Category category;
+    //private String categoryName; // Campo para el nombre de la categoría
+
+    //private Category category;
+    private String categoryDescription; // Campo para la descripción de la categoria
 
     private String userFirst_name;
 
