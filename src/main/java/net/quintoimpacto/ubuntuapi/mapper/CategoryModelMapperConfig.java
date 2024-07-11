@@ -1,9 +1,10 @@
 package net.quintoimpacto.ubuntuapi.mapper;
 
-import net.quintoimpacto.ubuntuapi.dto.MicroBusinessCategoryDto;
-import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
+import net.quintoimpacto.ubuntuapi.dto.CategoryDTO;
+import net.quintoimpacto.ubuntuapi.entity.enums.Category;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,14 +14,17 @@ public class CategoryModelMapperConfig {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
-        // Configuración específica para mapear MicroBusiness a MicroBusinessDTO
-        modelMapper.addMappings(new PropertyMap<MicroBusiness, MicroBusinessCategoryDto>() {
+        // Custom converter for Category enum to CategoryDTO
+        Converter<Category, CategoryDTO> categoryToDtoConverter = new Converter<Category, CategoryDTO>() {
             @Override
-            protected void configure() {
-                // Mapea el enum Category
-                map().setCategory(source.getCategory());
+            public CategoryDTO convert(MappingContext<Category, CategoryDTO> context) {
+                Category source = context.getSource();
+                return new CategoryDTO(source.name(), source.getDescription());
             }
-        });
+        };
+
+        // Add the custom converter
+        modelMapper.addConverter(categoryToDtoConverter);
 
         return modelMapper;
     }

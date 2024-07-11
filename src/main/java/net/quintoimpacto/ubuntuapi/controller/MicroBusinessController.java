@@ -3,7 +3,7 @@ package net.quintoimpacto.ubuntuapi.controller;
 import java.util.List;
 import java.util.Optional;
 
-import net.quintoimpacto.ubuntuapi.dto.MicroBusinessCategoryDto;
+import net.quintoimpacto.ubuntuapi.dto.CategoryDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessRegisterDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessShowDto;
@@ -57,12 +57,12 @@ public class MicroBusinessController {
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<MicroBusinessCategoryDto>> searchCategory(@PathVariable Category category){
+    public ResponseEntity<List<MicroBusinessDTO>> searchCategory(@PathVariable Category category){
         return ResponseEntity.status(HttpStatus.OK).body(microBusinessService.findByCategory(category));
     }
 
     @GetMapping("/categories")
-    private ResponseEntity<List<MicroBusinessCategoryDto>> searchAllCategory(){
+    private ResponseEntity<List<CategoryDTO>> searchAllCategory(){
         return ResponseEntity.status(HttpStatus.OK).body(microBusinessService.getAllCategory());
     }
 }
