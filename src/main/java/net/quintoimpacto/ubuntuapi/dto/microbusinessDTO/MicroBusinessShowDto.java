@@ -19,4 +19,6 @@ public class MicroBusinessShowDto {
     private String moreInformation;
 
     private Category category;
+
+    private String subTitle;
 }

@@ -125,24 +125,7 @@ INSERT INTO users(id, first_name, last_name, email, phone) VALUES(9, 'Hank', 'Ta
 INSERT INTO users(id, first_name, last_name, email, phone) VALUES(10, 'Ivy', 'Anderson', 'ivy.anderson@example.com', '2223334445');
 
 -- Insertar registros en la tabla micro_businesses
+INSERT INTO `micro_businesses` VALUES (0, 0, NULL, 1, 1, 1, 'Sustainable environmental solutions', 'Offering eco-friendly products and services', 'Pioneers in Eco-Friendly Solutions', 'EcoGreen Solutions', 'ECONOMIA_SOCIAL_DESARROLLO_LOCAL_INCLUSION_FINANCIERA'), (0, 0, NULL, 2, 2, 2, 'Innovative agricultural practices', 'Promoting organic farming techniques', 'Leaders in Organic Farming', 'AgroHarvest Co.', 'AGROECOLOGIA_ORGANICOS_ALIMENTACION_SALUDABLE'), (0, 0, NULL, 3, 3, 3, 'Protecting natural habitats', 'Programs for wildlife conservation', 'Champions of Wildlife Conservation', 'ConserveNature', 'CONSERVACION_REGENERACION_SERVICIOS_ECOSISTEMICOS'), (0, 0, NULL, 4, 4, 4, 'Business solutions for social good', 'Consulting for sustainable development', 'Advancing Social Impact through Business', 'Impact Innovators', 'EMPRESAS_ORGANISMOS_DE_IMPACTO_ECONOMIA_CIRCULAR'), (0, 0, NULL, 5, 5, 5, 'Urban gardening and farming', 'Workshops and supplies for urban agriculture', 'Empowering Urban Gardeners', 'GreenThumb Gardens', 'ECONOMIA_SOCIAL_DESARROLLO_LOCAL_INCLUSION_FINANCIERA'), (0, 0, NULL, 6, 6, 6, 'Eco-friendly farming solutions', 'Supporting local farmers with green technology', 'Innovators in Green Farming Technology', 'BioFarm Enterprises', 'AGROECOLOGIA_ORGANICOS_ALIMENTACION_SALUDABLE'), (0, 0, NULL, 7, 7, 7, 'Wildlife protection initiatives', 'Education and advocacy for endangered species', 'Protectors of Endangered Species', 'Wildlife Warriors', 'CONSERVACION_REGENERACION_SERVICIOS_ECOSISTEMICOS'), (0, 0, NULL, 8, 8, 8, 'Future-proof business practices', 'Consulting for long-term sustainability', 'Experts in Sustainable Business Practices', 'Sustainable Futures', 'EMPRESAS_ORGANISMOS_DE_IMPACTO_ECONOMIA_CIRCULAR'), (0, 0, NULL, 9, 9, 9, 'Environmental care and awareness', 'Campaigns to increase environmental consciousness', 'Promoting Environmental Awareness', 'Nature Nurturers', 'ECONOMIA_SOCIAL_DESARROLLO_LOCAL_INCLUSION_FINANCIERA'), (0, 0, NULL, 10, 10, 10, 'Advanced agricultural techniques', 'Promoting sustainable farming methods', 'Pioneers in Sustainable Agriculture', 'EcoFarm Solutions', 'AGROECOLOGIA_ORGANICOS_ALIMENTACION_SALUDABLE');
 
-INSERT INTO micro_businesses(name, description, more_information, category, province_id, user_id) VALUES("EcoGreen Solutions", "Sustainable environmental solutions", "Offering eco-friendly products and services", "SOCIAL_ECONOMY", 1, 1);
 
-INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("AgroHarvest Co.", "Innovative agricultural practices", "Promoting organic farming techniques", "AGROECOLOGY", 2, 2);
-
-INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("ConserveNature", "Protecting natural habitats", "Programs for wildlife conservation", "CONSERVATION", 3, 3);
-
-INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("Impact Innovators", "Business solutions for social good", "Consulting for sustainable development", "COMPANIES_IMPACT", 4, 4);
-
-INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("GreenThumb Gardens", "Urban gardening and farming", "Workshops and supplies for urban agriculture", "SOCIAL_ECONOMY", 5, 5);
-
-INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("BioFarm Enterprises", "Eco-friendly farming solutions", "Supporting local farmers with green technology", "AGROECOLOGY", 6, 6);
-
-INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("Wildlife Warriors", "Wildlife protection initiatives", "Education and advocacy for endangered species", "CONSERVATION", 7, 7);
-
-INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("Sustainable Futures", "Future-proof business practices", "Consulting for long-term sustainability", "COMPANIES_IMPACT", 8, 8);
-
-INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("Nature Nurturers", "Environmental care and awareness", "Campaigns to increase environmental consciousness", "SOCIAL_ECONOMY", 9, 9);
-
-INSERT INTO micro_businesses (name, description, more_information, category, province_id, user_id) VALUES("EcoFarm Solutions", "Advanced agricultural techniques", "Promoting sustainable farming methods", "AGROECOLOGY", 10, 10);
 
