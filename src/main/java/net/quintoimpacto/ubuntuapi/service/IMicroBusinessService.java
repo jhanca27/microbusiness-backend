@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import net.quintoimpacto.ubuntuapi.dto.MicroBusinessCategoryDto;
+import net.quintoimpacto.ubuntuapi.dto.CategoryDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessRegisterDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessShowDto;
@@ -20,6 +20,6 @@ public interface IMicroBusinessService {
     public Optional<MicroBusiness> findById(Long id);
 
     public Set<MicroBusinessDTO> findByName(String name);
-    public List<MicroBusinessCategoryDto> findByCategory(Category category);
-    public List<MicroBusinessCategoryDto> getAllCategory();
+    public List<MicroBusinessDTO> findByCategory(Category category);
+    public List<CategoryDTO> getAllCategory();
 }
