@@ -20,6 +20,8 @@ public class MicroBusinessRegisterDTO {
 
     private String moreInformation;
 
+    private String subTitle;
+
     private Category category;
 
     private Province province;

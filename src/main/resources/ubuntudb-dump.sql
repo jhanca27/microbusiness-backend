@@ -26,7 +26,7 @@ CREATE TABLE `countries` (
                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
                              `name` varchar(255) NOT NULL,
                              PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,6 +56,7 @@ CREATE TABLE `micro_businesses` (
                                     `description` varchar(255) DEFAULT NULL,
                                     `more_information` varchar(255) DEFAULT NULL,
                                     `name` varchar(255) NOT NULL,
+                                    `sub_title` varchar(255) DEFAULT NULL,
                                     `category` enum('AGROECOLOGY','COMPANIES_IMPACT','CONSERVATION','SOCIAL_ECONOMY') NOT NULL,
                                     PRIMARY KEY (`id`),
                                     KEY `FKncj5mjjf3xtx78mle9jp1y2r7` (`country_id`),
@@ -64,7 +65,7 @@ CREATE TABLE `micro_businesses` (
                                     CONSTRAINT `FK4q1vk89tnp4su6hvoelp8w71x` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`),
                                     CONSTRAINT `FKh8mhfpjtwthp36rkw98ql7s4k` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
                                     CONSTRAINT `FKncj5mjjf3xtx78mle9jp1y2r7` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +74,7 @@ CREATE TABLE `micro_businesses` (
 
 LOCK TABLES `micro_businesses` WRITE;
 /*!40000 ALTER TABLE `micro_businesses` DISABLE KEYS */;
-INSERT INTO `micro_businesses` VALUES (0,0,NULL,1,1,1,'Sustainable environmental solutions','Offering eco-friendly products and services','EcoGreen Solutions','SOCIAL_ECONOMY'),(0,0,NULL,2,2,2,'Innovative agricultural practices','Promoting organic farming techniques','AgroHarvest Co.','AGROECOLOGY'),(0,0,NULL,3,3,3,'Protecting natural habitats','Programs for wildlife conservation','ConserveNature','CONSERVATION'),(0,0,NULL,4,4,4,'Business solutions for social good','Consulting for sustainable development','Impact Innovators','COMPANIES_IMPACT'),(0,0,NULL,5,5,5,'Urban gardening and farming','Workshops and supplies for urban agriculture','GreenThumb Gardens','SOCIAL_ECONOMY'),(0,0,NULL,6,6,6,'Eco-friendly farming solutions','Supporting local farmers with green technology','BioFarm Enterprises','AGROECOLOGY'),(0,0,NULL,7,7,7,'Wildlife protection initiatives','Education and advocacy for endangered species','Wildlife Warriors','CONSERVATION'),(0,0,NULL,8,8,8,'Future-proof business practices','Consulting for long-term sustainability','Sustainable Futures','COMPANIES_IMPACT'),(0,0,NULL,9,9,9,'Environmental care and awareness','Campaigns to increase environmental consciousness','Nature Nurturers','SOCIAL_ECONOMY'),(0,0,NULL,10,10,10,'Advanced agricultural techniques','Promoting sustainable farming methods','EcoFarm Solutions','AGROECOLOGY');
+INSERT INTO `micro_businesses` VALUES (0,0,NULL,1,1,1,'Sustainable environmental solutions','Offering eco-friendly products and services','Pioneers in Eco-Friendly Solutions','EcoGreen Solutions','SOCIAL_ECONOMY'),(0,0,NULL,2,2,2,'Innovative agricultural practices','Promoting organic farming techniques','Leaders in Organic Farming','AgroHarvest Co.','AGROECOLOGY'),(0,0,NULL,3,3,3,'Protecting natural habitats','Programs for wildlife conservation','Champions of Wildlife Conservation','ConserveNature','CONSERVATION'),(0,0,NULL,4,4,4,'Business solutions for social good','Consulting for sustainable development','Advancing Social Impact through Business','Impact Innovators','COMPANIES_IMPACT'),(0,0,NULL,5,5,5,'Urban gardening and farming','Workshops and supplies for urban agriculture','Empowering Urban Gardeners','GreenThumb Gardens','SOCIAL_ECONOMY'),(0,0,NULL,6,6,6,'Eco-friendly farming solutions','Supporting local farmers with green technology','Innovators in Green Farming Technology','BioFarm Enterprises','AGROECOLOGY'),(0,0,NULL,7,7,7,'Wildlife protection initiatives','Education and advocacy for endangered species','Protectors of Endangered Species','Wildlife Warriors','CONSERVATION'),(0,0,NULL,8,8,8,'Future-proof business practices','Consulting for long-term sustainability','Experts in Sustainable Business Practices','Sustainable Futures','COMPANIES_IMPACT'),(0,0,NULL,9,9,9,'Environmental care and awareness','Campaigns to increase environmental consciousness','Promoting Environmental Awareness','Nature Nurturers','SOCIAL_ECONOMY'),(0,0,NULL,10,10,10,'Advanced agricultural techniques','Promoting sustainable farming methods','Pioneers in Sustainable Agriculture','EcoFarm Solutions','AGROECOLOGY');
 /*!40000 ALTER TABLE `micro_businesses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +92,7 @@ CREATE TABLE `provinces` (
                              PRIMARY KEY (`id`),
                              KEY `FK48p9qkti5auert2gquvn76338` (`country_id`),
                              CONSTRAINT `FK48p9qkti5auert2gquvn76338` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +121,7 @@ CREATE TABLE `users` (
                          `phone` varchar(255) NOT NULL,
                          `role` varchar(10) DEFAULT 'admin',
                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,4 +143,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-08 16:39:41
+-- Dump completed on 2024-07-10 18:50:59
