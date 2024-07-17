@@ -23,4 +23,10 @@ public class CloudinaryService {
         byte[] decodedBytes = Base64.getDecoder().decode(base64File.split(",")[1]);
         return cloudinary.uploader().upload(decodedBytes, ObjectUtils.emptyMap());
     }
+
+    public Map deleteImageByPublicId(String publicId) throws Exception {
+        Map result = cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+        return result;
+    }
+
 }
