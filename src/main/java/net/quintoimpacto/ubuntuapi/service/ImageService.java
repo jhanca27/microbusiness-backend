@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Optional;
 @Service
 public class ImageService {
 
@@ -20,6 +20,10 @@ public class ImageService {
 
     public Optional<Image> findImageById(Long id) {
         return imageRepository.findById(id);
+    }
+
+    public Optional<Image> findImageByPublicId(String publicId) {
+        return imageRepository.findByPublicId(publicId);
     }
 
     public List<Image> findAllImages() {

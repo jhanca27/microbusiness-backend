@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.Optional;
 
 import java.util.List;
 import java.util.Map;
@@ -70,9 +71,21 @@ public class ImageController {
     @PostMapping("/deleteByPublicId")
     public ResponseEntity<?> deleteImageByPublicId(@RequestParam("publicId") String publicId) {
         try {
+            // Paso 1: Eliminar imagen de Cloudinary
             Map result = cloudinaryService.deleteImageByPublicId(publicId);
+
+            // Paso 2 y 3: Buscar y eliminar la imagen de la base de datos local
+            Optional<Image> imageOptional = imageService.findImageByPublicId(publicId);
+            if (imageOptional.isPresent()) {
+                imageService.deleteImage(imageOptional.get().getId());
+            } else {
+                return ResponseEntity.badRequest().body("Imagen no encontrada en la base de datos");
+            }
+
+            // Paso 4: Devolver respuesta de éxito
             return ResponseEntity.ok(result);
         } catch (Exception e) {
+            // Devolver respuesta de error
             return ResponseEntity.badRequest().body("No se pudo borrar la imagen: " + e.getMessage());
         }
     }
@@ -90,8 +103,27 @@ public class ImageController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteImage(@PathVariable Long id) {
-        imageService.deleteImage(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> deleteImageById(@PathVariable Long id) {
+        try {
+            // Paso 1: Buscar la imagen en la base de datos local
+            Optional<Image> imageOptional = imageService.findImageById(id);
+            if (imageOptional.isPresent()) {
+                Image image = imageOptional.get();
+
+                // Paso 2: Eliminar imagen de Cloudinary utilizando el publicId
+                Map result = cloudinaryService.deleteImageByPublicId(image.getPublicId());
+
+                // Paso 3: Eliminar la imagen de la base de datos local
+                imageService.deleteImage(id);
+
+                // Paso 4: Devolver respuesta de éxito
+                return ResponseEntity.ok().body("Imagen eliminada con éxito");
+            } else {
+                return ResponseEntity.badRequest().body("Imagen no encontrada en la base de datos");
+            }
+        } catch (Exception e) {
+            // Devolver respuesta de error
+            return ResponseEntity.badRequest().body("No se pudo borrar la imagen: " + e.getMessage());
+        }
     }
 }
