@@ -48,6 +48,19 @@ public class ImageController {
     public ResponseEntity<?> uploadBase64File(@RequestParam("fileBase64") String fileBase64) {
         try {
             Map result = cloudinaryService.uploadBase64File(fileBase64);
+
+            // Crear una nueva instancia de Image con los datos relevantes
+            Image image = new Image();
+            image.setPublicId((String) result.get("public_id"));
+            image.setUrl((String) result.get("url"));
+            // Asegúrate de establecer cualquier otro campo necesario de Image aquí
+
+            // Guardar la instancia de Image en la base de datos
+            Image savedImage = imageService.saveImage(image);
+
+            // Imprimir un mensaje en la terminal
+            System.out.println("Imagen Base64 subida y guardada en la base de datos con ID: " + savedImage.getId());
+
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("No se pudo subir el archivo: " + e.getMessage());
