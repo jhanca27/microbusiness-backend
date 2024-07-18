@@ -1,11 +1,14 @@
 package net.quintoimpacto.ubuntuapi.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Base64;
 import java.util.Map;
 
@@ -24,9 +27,7 @@ public class CloudinaryService {
         return cloudinary.uploader().upload(decodedBytes, ObjectUtils.emptyMap());
     }
 
-    public Map deleteImageByPublicId(String publicId) throws Exception {
-        Map result = cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
-        return result;
+    public Map deleteImageByPublicId(String publicId) throws IOException {
+        return cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
     }
-
 }
