@@ -23,21 +23,18 @@ public class ImageController {
     private ImageService imageService;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("microBusinessId") Long microBusinessId) {
         try {
             Map result = cloudinaryService.uploadFile(file);
 
-            // Crear una nueva instancia de Image con los datos relevantes
             Image image = new Image();
             image.setPublicId((String) result.get("public_id"));
             image.setUrl((String) result.get("url"));
-            // Asegúrate de establecer cualquier otro campo necesario de Image aquí
 
-            // Guardar la instancia de Image en la base de datos
-            Image savedImage = imageService.saveImage(image);
+            // Asociar la imagen al microemprendimiento antes de guardarla
+            image = imageService.saveImageWithMicroBusiness(microBusinessId, image);
 
-            // Imprimir un mensaje en la terminal
-            System.out.println("Imagen subida y guardada en la base de datos con ID: " + savedImage.getId());
+            System.out.println("Imagen subida y guardada en la base de datos con ID: " + image.getId() + " y asociada al microemprendimiento con ID: " + microBusinessId);
 
             return ResponseEntity.ok(result);
         } catch (Exception e) {
@@ -46,21 +43,18 @@ public class ImageController {
     }
 
     @PostMapping("/uploadBase64")
-    public ResponseEntity<?> uploadBase64File(@RequestParam("fileBase64") String fileBase64) {
+    public ResponseEntity<?> uploadBase64File(@RequestParam("fileBase64") String fileBase64, @RequestParam("microBusinessId") Long microBusinessId) {
         try {
             Map result = cloudinaryService.uploadBase64File(fileBase64);
 
-            // Crear una nueva instancia de Image con los datos relevantes
             Image image = new Image();
             image.setPublicId((String) result.get("public_id"));
             image.setUrl((String) result.get("url"));
-            // Asegúrate de establecer cualquier otro campo necesario de Image aquí
 
-            // Guardar la instancia de Image en la base de datos
-            Image savedImage = imageService.saveImage(image);
+            // Asociar la imagen al microemprendimiento antes de guardarla
+            image = imageService.saveImageWithMicroBusiness(microBusinessId, image);
 
-            // Imprimir un mensaje en la terminal
-            System.out.println("Imagen Base64 subida y guardada en la base de datos con ID: " + savedImage.getId());
+            System.out.println("Imagen Base64 subida y guardada en la base de datos con ID: " + image.getId() + " y asociada al microemprendimiento con ID: " + microBusinessId);
 
             return ResponseEntity.ok(result);
         } catch (Exception e) {
