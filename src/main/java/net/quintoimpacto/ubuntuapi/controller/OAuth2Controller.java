@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 
 @RestController
@@ -20,7 +21,11 @@ public class OAuth2Controller {
     }
 
     @PostMapping("/google")
-    public ResponseEntity<Map<String, Object>> authenticateUser(@RequestParam String code) {
+    public ResponseEntity<Map<String, Object>> authenticateUser(@RequestParam Map<String, String> request) {
+        String code = request.get("code");
+        if (code == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Missing code parameter"));
+        }
         try {
             OAuth2TokenResponse tokenResponse = userAuthImpl.getGoogleOauth2AccessToken(code).block();
             if (tokenResponse != null && tokenResponse.getId_token() != null) {

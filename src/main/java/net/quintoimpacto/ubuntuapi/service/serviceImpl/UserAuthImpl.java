@@ -86,7 +86,7 @@ public class UserAuthImpl implements IUserAuthService {
                         .fromFormData("code", authorizationCode)
                         .with("client_id", clientId)
                         .with("client_secret", clientSecret)
-                        .with("redirect_uri", "http://localhost:8080/api/v1/oauth2/authorization/google")
+                        .with("redirect_uri", "http://localhost:8080/login/oauth2/google") // Ajustado
                         .with("grant_type", "authorization_code"))
                 .retrieve()
                 .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
