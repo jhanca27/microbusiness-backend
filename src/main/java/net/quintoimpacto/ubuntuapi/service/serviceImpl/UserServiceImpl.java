@@ -1,5 +1,6 @@
 package net.quintoimpacto.ubuntuapi.service.serviceImpl;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import net.quintoimpacto.ubuntuapi.dto.UserDTO;
 import net.quintoimpacto.ubuntuapi.entity.User;
 import net.quintoimpacto.ubuntuapi.mapper.UserMapper;
@@ -32,5 +33,20 @@ public class UserServiceImpl implements IUserService {
         user.setDeleted(!user.isDeleted());
         userRepository.save(user);
         return "User status updated";
+    }
+
+    public User findUserByEmailOrCreateIt(GoogleIdToken.Payload payload) {
+        String email = payload.getEmail();
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            user = new User();
+            user.setEmail(email);
+            user.setFirst_name((String) payload.get("given_name"));
+            user.setLast_name((String) payload.get("family_name"));
+            user.setRole("USER");
+            userRepository.save(user);
+        }
+        return user;
     }
 }
