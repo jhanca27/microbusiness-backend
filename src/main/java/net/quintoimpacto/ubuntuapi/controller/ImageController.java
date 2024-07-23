@@ -62,6 +62,33 @@ public class ImageController {
         }
     }
 
+
+    @PutMapping("/updateBase64")
+    public ResponseEntity<?> updateImageBase64(@RequestParam("id") Long id, @RequestParam("fileBase64") String fileBase64) {
+        try {
+            Optional<Image> existingImageOptional = imageService.findImageById(id);
+            if (!existingImageOptional.isPresent()) {
+                return ResponseEntity.notFound().build();
+            }
+            Image existingImage = existingImageOptional.get();
+
+            // Eliminar la imagen anterior de Cloudinary
+            cloudinaryService.deleteImageByPublicId(existingImage.getPublicId());
+
+            // Subir la nueva imagen a Cloudinary
+            Map result = cloudinaryService.uploadBase64File(fileBase64);
+
+            // Actualizar los detalles de la imagen en la base de datos
+            existingImage.setPublicId((String) result.get("public_id"));
+            existingImage.setUrl((String) result.get("url"));
+            Image updatedImage = imageService.saveImage(existingImage);
+
+            return ResponseEntity.ok(updatedImage);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("No se pudo actualizar la imagen: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/deleteByPublicId")
     public ResponseEntity<?> deleteImageByPublicId(@RequestParam("publicId") String publicId) {
         try {

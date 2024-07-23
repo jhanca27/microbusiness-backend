@@ -40,6 +40,17 @@ public class ImageService {
         imageRepository.deleteById(id);
     }
 
+    public Image updateImage(Long id, String newUrl, String newPublicId) {
+        Optional<Image> existingImageOptional = findImageById(id);
+        if (!existingImageOptional.isPresent()) {
+            throw new RuntimeException("Image not found with ID: " + id);
+        }
+        Image existingImage = existingImageOptional.get();
+        existingImage.setUrl(newUrl);
+        existingImage.setPublicId(newPublicId);
+        return saveImage(existingImage);
+    }
+
     public Image saveImageWithMicroBusiness(Long microBusinessId, Image image) {
         Optional<MicroBusiness> microBusinessOptional = microBusinessRepository.findById(microBusinessId);
         if (microBusinessOptional.isPresent()) {
