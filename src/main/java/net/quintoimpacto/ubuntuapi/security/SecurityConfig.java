@@ -1,9 +1,9 @@
 package net.quintoimpacto.ubuntuapi.security;
 
+import net.quintoimpacto.ubuntuapi.security.jwt.JwtTokenAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -11,22 +11,14 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableMethodSecurity
-public class ResourceServerConfig {
+public class SecurityConfig {
 
-/*
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
-                .authorizeHttpRequests(request ->{
-                    request.requestMatchers(HttpMethod.GET,"/", "/user").permitAll();
+    private final JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
 
-                    request.anyRequest().authenticated();
-                })
-                .formLogin(Customizer.withDefaults())
-                .oauth2Login(Customizer.withDefaults())
-                .build();
-    }*/
-
+    @Autowired
+    public SecurityConfig(JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter) {
+        this.jwtTokenAuthenticationFilter = jwtTokenAuthenticationFilter;
+    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -37,7 +29,7 @@ public class ResourceServerConfig {
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/oauth2/authorization/google")
+                        .loginPage("/login/oauth2/**")
                         .defaultSuccessUrl("/user", true)
                 )
                 .logout(logout -> logout
