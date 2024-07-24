@@ -29,18 +29,20 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/login/oauth2/**").permitAll() // Permitido el acceso sin autenticación
+                                .requestMatchers("/", "/login/oauth2/**", "/error").permitAll() 
                                 .requestMatchers("/admin").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/login/oauth2/google") // URL de la página de inicio de sesión
-                        .successHandler(customAuthenticationSuccessHandler)
+                .loginPage("/oauth2/authorization/google")
+                         .defaultSuccessUrl("/user", true) 
+                        // .failureUrl("/login?error=true")  agregue esta ruta de error
+                        .successHandler(customAuthenticationSuccessHandler) //si comentas este te redirije a user para que lo pruebes en el back
                 )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/").permitAll()
                 )
-                .addFilterBefore(jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Agrega el filtro JWT aquí
+                .addFilterBefore(jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); 
         return http.build();
     }
 }
