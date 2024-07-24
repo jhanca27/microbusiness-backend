@@ -20,13 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
 import net.quintoimpacto.ubuntuapi.service.IMicroBusinessService;
 
 @RestController
 @RequestMapping("/microbusiness")
 public class MicroBusinessController {
-    
+
     @Autowired
     private IMicroBusinessService microBusinessService;
 
@@ -39,7 +38,7 @@ public class MicroBusinessController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody MicroBusinessDTO microBusinessDTO, @PathVariable Long id){
-        Optional<MicroBusiness> microBusinessOptional = microBusinessService.findById(id);
+        Optional<MicroBusinessDTO> microBusinessOptional = microBusinessService.findById(id);
 
         if(microBusinessOptional.isPresent()){
             microBusinessService.update(microBusinessDTO);
