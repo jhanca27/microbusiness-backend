@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService {
             user.setEmail(email);
             user.setFirst_name((String) payload.get("given_name"));
             user.setLast_name((String) payload.get("family_name"));
-            user.setRole("USER");
+            user.setRole("admin");
             userRepository.save(user);
         }
         return user;

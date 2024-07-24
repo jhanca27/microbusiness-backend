@@ -12,7 +12,7 @@ public class SecurityController {
         return "Hello world";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/admin")
     public String admin() {
         return "Hello world Admin";
