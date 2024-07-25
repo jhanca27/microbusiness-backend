@@ -11,6 +11,7 @@ import net.quintoimpacto.ubuntuapi.dto.ImageDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessRegisterDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessShowDto;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessUpdateDTO;
 import net.quintoimpacto.ubuntuapi.entity.Image;
 import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
 import net.quintoimpacto.ubuntuapi.entity.enums.Category;
@@ -37,24 +38,23 @@ public class MicroBusinessImpl implements IMicroBusinessService {
     public MicroBusinessShowDto save(MicroBusinessRegisterDTO microBusinessDTO) {
         var microBusiness = modelMapper.map(microBusinessDTO, MicroBusiness.class);
         microBusiness = microBusinessRepository.save(microBusiness);
-        System.out.println(microBusiness);
         return modelMapper.map(microBusiness, MicroBusinessShowDto.class);
     }
 
     @Override
-    public void update(MicroBusinessDTO microBusinessDTO) {
-        var microBusiness = modelMapper.map(microBusinessDTO, MicroBusiness.class);
-        microBusinessRepository.save(microBusiness);
+    public void update(MicroBusinessUpdateDTO microBusinessUpdateDTO) {
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        var microToUpdate = microBusinessRepository.findById(microBusinessUpdateDTO.getId()).get();
+        modelMapper.map(microBusinessUpdateDTO, microToUpdate);
+        microBusinessRepository.save(microToUpdate);
     }
 
     @Override
     public Optional<MicroBusinessDTO> findById(Long id) {
         Optional<MicroBusiness> microBusinessOptional = microBusinessRepository.findById(id);
         if (microBusinessOptional.isPresent()) {
-            MicroBusiness microBusiness = microBusinessOptional.get();
-            List<Image> images = imageRepository.findByMicroBusinessId(id);
-            MicroBusinessDTO dto = modelMapper.map(microBusiness, MicroBusinessDTO.class);
-            dto.setImages(images.stream().map(image -> modelMapper.map(image, ImageDTO.class)).collect(Collectors.toList()));
+            var microBusiness = microBusinessOptional.get();
+            var dto = modelMapper.map(microBusiness, MicroBusinessDTO.class);
             return Optional.of(dto);
         } else {
             return Optional.empty();

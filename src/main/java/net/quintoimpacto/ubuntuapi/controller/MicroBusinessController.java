@@ -7,6 +7,7 @@ import net.quintoimpacto.ubuntuapi.dto.CategoryDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessRegisterDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessShowDto;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessUpdateDTO;
 import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,11 +38,10 @@ public class MicroBusinessController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@RequestBody MicroBusinessDTO microBusinessDTO, @PathVariable Long id){
+    public ResponseEntity<?> update(@RequestBody MicroBusinessUpdateDTO microBusinessUpdateDTO, @PathVariable Long id){
         Optional<MicroBusinessDTO> microBusinessOptional = microBusinessService.findById(id);
-
         if(microBusinessOptional.isPresent()){
-            microBusinessService.update(microBusinessDTO);
+            microBusinessService.update(microBusinessUpdateDTO);
             return ResponseEntity.ok("Registro actualizado");
         }else{
             return ResponseEntity.notFound().build();
