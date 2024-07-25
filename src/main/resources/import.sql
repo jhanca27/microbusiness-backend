@@ -114,12 +114,12 @@ INSERT INTO provinces(id, name, country_id) VALUES(110, 'Tierra del Fuego', 3);
 INSERT INTO provinces(id, name, country_id) VALUES(111, 'Antártica Chilena', 3);
 
 INSERT INTO users(id, first_name, last_name, email, phone) VALUES(1, 'Jhan', 'Ca', 'jhan@gmail.com', "32516136513")
-INSERT INTO users(id, first_name, last_name, email, phone) VALUES(2, 'Alice', 'Smith', 'maricarolinagomez88@gmail.com', '1234567890');
-INSERT INTO users(id, first_name, last_name, email, phone) VALUES(3, 'Bob', 'Johnson', 'bob.johnson@example.com', '0987654321');
-INSERT INTO users(id, first_name, last_name, email, phone) VALUES(4, 'Charlie', 'Brown', 'charlie.brown@example.com', '1112223333');
-INSERT INTO users(id, first_name, last_name, email, phone) VALUES(5, 'Diana', 'Davis', 'diana.davis@example.com', '4445556666');
-INSERT INTO users(id, first_name, last_name, email, phone) VALUES(6, 'Eve', 'Miller', 'eve.miller@example.com', '7778889999');
-INSERT INTO users(id, first_name, last_name, email, phone) VALUES(7, 'Frank', 'Wilson', 'frank.wilson@example.com', '3332221111');
+INSERT INTO users(id, first_name, last_name, email, phone) VALUES(2, 'Carolina', 'Gomez', 'maricarolinagomez88@gmail.com', '1234567890');
+INSERT INTO users(id, first_name, last_name, email, phone) VALUES(3, 'Alondra', 'Gadea', 'alonngadea@gmail.com', '0987654321');
+INSERT INTO users(id, first_name, last_name, email, phone) VALUES(4, 'Walter', 'Porta', 'walterportadev@gmail.com', '1112223333');
+INSERT INTO users(id, first_name, last_name, email, phone) VALUES(5, 'Mauro', 'Jim', 'maurojim123@gmail.com', '4445556666');
+INSERT INTO users(id, first_name, last_name, email, phone) VALUES(6, 'Pablo', 'Galindo', 'pablogalindo90@gmail.com', '7778889999');
+INSERT INTO users(id, first_name, last_name, email, phone) VALUES(7, 'Ubuntu', 'Organization', 'ubuntuorganizationproyect@gmail.com', '33322211151');
 INSERT INTO users(id, first_name, last_name, email, phone) VALUES(8, 'Grace', 'Moore', 'grace.moore@example.com', '6665554444');
 INSERT INTO users(id, first_name, last_name, email, phone) VALUES(9, 'Hank', 'Taylor', 'hank.taylor@example.com', '9998887777');
 INSERT INTO users(id, first_name, last_name, email, phone) VALUES(10, 'Ivy', 'Anderson', 'ivy.anderson@example.com', '2223334445');
