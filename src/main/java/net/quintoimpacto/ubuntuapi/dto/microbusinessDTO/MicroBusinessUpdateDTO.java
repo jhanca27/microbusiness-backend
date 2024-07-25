@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MicroBusinessDTO {
+public class MicroBusinessUpdateDTO {
 
     private Long id;
 
@@ -24,7 +24,7 @@ public class MicroBusinessDTO {
 
     private String subTitle;
 
-    private String categoryDescription; // Campo para la descripción de la categoria
+    private String category;
 
     private String userFirst_name;
 

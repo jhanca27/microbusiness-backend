@@ -8,18 +8,14 @@ import net.quintoimpacto.ubuntuapi.dto.CategoryDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessRegisterDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessShowDto;
-import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessUpdateDTO;
 import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 
 public interface IMicroBusinessService {
-    
-    public MicroBusinessShowDto save(MicroBusinessRegisterDTO microBusinessDTO);
-    
-    public void update(MicroBusinessDTO microBusinessDTO);
-
-    public Optional<MicroBusiness> findById(Long id);
-
-    public Set<MicroBusinessDTO> findByName(String name);
-    public List<MicroBusinessDTO> findByCategory(Category category);
-    public List<CategoryDTO> getAllCategory();
+    MicroBusinessShowDto save(MicroBusinessRegisterDTO microBusinessDTO);
+    void update(MicroBusinessUpdateDTO microBusinessUpdateDTO);
+    Optional<MicroBusinessDTO> findById(Long id);
+    Set<MicroBusinessDTO> findByName(String name);
+    List<MicroBusinessDTO> findByCategory(Category category);
+    List<CategoryDTO> getAllCategory();
 }

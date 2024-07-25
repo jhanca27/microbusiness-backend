@@ -7,6 +7,7 @@ import net.quintoimpacto.ubuntuapi.dto.CategoryDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessRegisterDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessShowDto;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessUpdateDTO;
 import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,13 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
 import net.quintoimpacto.ubuntuapi.service.IMicroBusinessService;
 
 @RestController
 @RequestMapping("/microbusiness")
 public class MicroBusinessController {
-    
+
     @Autowired
     private IMicroBusinessService microBusinessService;
 
@@ -38,16 +38,25 @@ public class MicroBusinessController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@RequestBody MicroBusinessDTO microBusinessDTO, @PathVariable Long id){
-        Optional<MicroBusiness> microBusinessOptional = microBusinessService.findById(id);
+    public ResponseEntity<?> update(@RequestBody MicroBusinessUpdateDTO microBusinessUpdateDTO, @PathVariable Long id){
+        if (id == null) {
+            return ResponseEntity.badRequest().body("The given id must not be null");
+        }
 
+        System.out.println("Received ID: " + id);
+        System.out.println("Received DTO: " + microBusinessUpdateDTO);
+
+        if (microBusinessUpdateDTO.getId() == null) {
+            microBusinessUpdateDTO.setId(id);
+        }
+
+        Optional<MicroBusinessDTO> microBusinessOptional = microBusinessService.findById(id);
         if(microBusinessOptional.isPresent()){
-            microBusinessService.update(microBusinessDTO);
+            microBusinessService.update(microBusinessUpdateDTO);
             return ResponseEntity.ok("Registro actualizado");
         }else{
             return ResponseEntity.notFound().build();
         }
-
     }
 
     @GetMapping("/")
