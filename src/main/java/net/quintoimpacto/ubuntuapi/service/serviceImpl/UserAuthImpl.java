@@ -23,7 +23,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 
 import net.quintoimpacto.ubuntuapi.entity.User;
-import net.quintoimpacto.ubuntuapi.repository.IUserRepository;
 
 import reactor.core.publisher.Mono;
 
@@ -31,11 +30,10 @@ import reactor.core.publisher.Mono;
 public class UserAuthImpl implements IUserAuthService {
 
     @Autowired
-    IUserRepository userRepository;
+    private TokenUtil tokenUtil;
     @Autowired
-    TokenUtil tokenUtil;
-    @Autowired
-    IUserService userService;
+    private IUserService userService;
+
     private static final String GOOGLE_ISSUER = "https://accounts.google.com";
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
@@ -47,7 +45,13 @@ public class UserAuthImpl implements IUserAuthService {
     public Map<String, Object> authUser(String authHeader) throws GeneralSecurityException, IOException {
         var token = tokenUtil.extractTokenFromHeader(authHeader);
         var payload = validateGoogleTokenAndGetPayload(token);
-        User user = userService.findUserByEmailOrCreateIt(payload);
+        String email = payload.getEmail();
+        User user = userService.findUserByEmail(email);
+
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("token", tokenUtil.generateToken(user));
         responseBody.put("name", user.getFirst_name());
@@ -86,7 +90,7 @@ public class UserAuthImpl implements IUserAuthService {
                         .fromFormData("code", authorizationCode)
                         .with("client_id", clientId)
                         .with("client_secret", clientSecret)
-                        .with("redirect_uri", "http://localhost:8080/login/oauth2/google") // Ajustado
+                        .with("redirect_uri", "http://localhost:8080/login/oauth2/google")
                         .with("grant_type", "authorization_code"))
                 .retrieve()
                 .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
