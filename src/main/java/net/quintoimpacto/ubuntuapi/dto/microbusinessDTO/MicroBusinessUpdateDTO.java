@@ -1,23 +1,19 @@
 package net.quintoimpacto.ubuntuapi.dto.microbusinessDTO;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.quintoimpacto.ubuntuapi.dto.ImageDTO;
-import net.quintoimpacto.ubuntuapi.entity.Country;
-import net.quintoimpacto.ubuntuapi.entity.Province;
-import net.quintoimpacto.ubuntuapi.entity.User;
-import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MicroBusinessUpdateDTO {
+
     private Long id;
 
     private String name;
@@ -28,13 +24,13 @@ public class MicroBusinessUpdateDTO {
 
     private String subTitle;
 
-    private Category category; // Campo para la descripción de la categoria
+    private String category;
 
-    private User user;
+    private String userFirst_name;
 
-    private Province province;
+    private String provinceName;
 
-    private Country provinceCountry;
+    private String provinceCountryName;
 
-    private List<ImageDTO> images; 
+    private List<ImageDTO> images; // Lista de imágenes relacionadas
 }

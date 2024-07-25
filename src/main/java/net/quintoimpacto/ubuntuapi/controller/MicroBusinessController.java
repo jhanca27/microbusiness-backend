@@ -39,6 +39,17 @@ public class MicroBusinessController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody MicroBusinessUpdateDTO microBusinessUpdateDTO, @PathVariable Long id){
+        if (id == null) {
+            return ResponseEntity.badRequest().body("The given id must not be null");
+        }
+
+        System.out.println("Received ID: " + id);
+        System.out.println("Received DTO: " + microBusinessUpdateDTO);
+
+        if (microBusinessUpdateDTO.getId() == null) {
+            microBusinessUpdateDTO.setId(id);
+        }
+
         Optional<MicroBusinessDTO> microBusinessOptional = microBusinessService.findById(id);
         if(microBusinessOptional.isPresent()){
             microBusinessService.update(microBusinessUpdateDTO);
@@ -46,7 +57,6 @@ public class MicroBusinessController {
         }else{
             return ResponseEntity.notFound().build();
         }
-
     }
 
     @GetMapping("/")
