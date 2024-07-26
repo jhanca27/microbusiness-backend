@@ -3,6 +3,7 @@ package net.quintoimpacto.ubuntuapi.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,13 +36,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
-                                .requestMatchers("/admin").hasAuthority("admin")
+                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}").permitAll()
+                                .requestMatchers("/admin", "/**" ).hasAuthority("admin") // Ajuste aquí
+                                .requestMatchers(HttpMethod.POST, "/images/uploadBase64").hasAuthority("admin")
+                                .requestMatchers(HttpMethod.PUT, "/images/updateBase64").hasAuthority("admin")
+                                .requestMatchers(HttpMethod.DELETE, "/images/{id}").hasAuthority("admin")
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/oauth2/authorization/google")
-                        .defaultSuccessUrl("/user", true)
-                        .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint.oidcUserService(customOidcUserService))//mapeo de roles,para asignar el rol 'admin'.
+                        .defaultSuccessUrl("/user")
+                        .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint.oidcUserService(customOidcUserService))
                         .successHandler(customAuthenticationSuccessHandler)
                 )
                 .logout(logout -> logout
@@ -50,5 +55,4 @@ public class SecurityConfig {
                 .addFilterBefore(jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-    //por si acaso puse mi correo en la base de datos y hice un mappeo de roles tmb tenes que agregarlo tmb si
 }

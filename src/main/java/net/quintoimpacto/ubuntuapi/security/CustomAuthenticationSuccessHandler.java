@@ -26,6 +26,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Value("${FRONTEND_URL}")
     private String frontendUrl;
 
+    @Value("${FRONTEND_URL_UNAUTHORIZED}")
+    private String frontendUrlUnauthorized;
+
     @Autowired
     private IUserService userService;
 
@@ -34,11 +37,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
         String email = oidcUser.getEmail();
 
-        // Buscar el usuario en la base de datos
         User user = userService.findUserByEmail(email);
 
         if (user != null) {
-            // Crear el token JWT con los datos del usuario
             String token = Jwts.builder()
                     .setSubject(email)
                     .claim("first_name", user.getFirst_name())
@@ -51,7 +52,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
             response.sendRedirect(frontendUrl + "/?token=" + token);
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
+            response.sendRedirect(frontendUrlUnauthorized);
         }
     }
 }
