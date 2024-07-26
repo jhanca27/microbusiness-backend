@@ -1,6 +1,5 @@
-package net.quintoimpacto.ubuntuapi.service;
 
-import java.util.Optional;
+package net.quintoimpacto.ubuntuapi.service;
 
 import net.quintoimpacto.ubuntuapi.dto.UserDTO;
 import net.quintoimpacto.ubuntuapi.entity.User;
@@ -8,5 +7,5 @@ import net.quintoimpacto.ubuntuapi.entity.User;
 public interface IUserService {
     User save(UserDTO userDTO);
     String updateStatus(Long id);
-    Optional<User> findByEmail(String email);
+    User findUserByEmail(String email); // Método para encontrar usuario por email
 }
