@@ -23,8 +23,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Value("${SECRET_KEY}")
     private String secretKey;
 
-    @Value("${FRONTEND_URL}")
-    private String frontendUrl;
+    /* @Value("${FRONTEND_URL}")
+    private String frontendUrl; */
 
     @Autowired
     private IUserService userService;
@@ -48,8 +48,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                     .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 hora
                     .signWith(SignatureAlgorithm.HS512, secretKey)
                     .compact();
-
-            response.sendRedirect(frontendUrl + "/?token=" + token);
+            /* response.sendRedirect(frontendUrl + "/?token=" + token); */
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"token\": \"" + token + "\"}");
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
         }
