@@ -21,6 +21,11 @@ import net.quintoimpacto.ubuntuapi.service.IMicroBusinessService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
+import net.quintoimpacto.ubuntuapi.repository.IMicroBusinessRepository;
+import net.quintoimpacto.ubuntuapi.service.IMicroBusinessService;
 
 @Service
 public class MicroBusinessImpl implements IMicroBusinessService {
@@ -42,11 +47,11 @@ public class MicroBusinessImpl implements IMicroBusinessService {
     }
 
     @Override
-    public void update(MicroBusinessUpdateDTO microBusinessUpdateDTO) {
-        modelMapper.getConfiguration().setSkipNullEnabled(true);
-        var microToUpdate = microBusinessRepository.findById(microBusinessUpdateDTO.getId()).get();
-        modelMapper.map(microBusinessUpdateDTO, microToUpdate);
-        microBusinessRepository.save(microToUpdate);
+    public void update(MicroBusinessDTO microBusinessDTO,Long id) {
+        modelMapper.getConfiguration().isSkipNullEnabled();
+        var microBusinessToUpdate = microBusinessRepository.findById(id).get();
+        modelMapper.map(microBusinessDTO,microBusinessToUpdate);
+        microBusinessRepository.save(microBusinessToUpdate);
     }
 
     @Override
@@ -63,14 +68,14 @@ public class MicroBusinessImpl implements IMicroBusinessService {
 
     @Override
     public Set<MicroBusinessDTO> findByName(String name) {
-        return microBusinessRepository.findByNameContainingIgnoreCase(name).stream()
-                .map(micro -> modelMapper.map(micro, MicroBusinessDTO.class))
-                .collect(Collectors.toSet());
+        return microBusinessRepository.findByNameContainingIgnoreCaseAndDeletedFalse(name).stream()
+                                                        .map(micro -> modelMapper.map(micro, MicroBusinessDTO.class))
+                                                        .collect(Collectors.toSet());
     }
 
     @Override
     public List<MicroBusinessDTO> findByCategory(Category category) {
-        List<MicroBusiness> microBusinesses = microBusinessRepository.findByCategory(category);
+        List<MicroBusiness> microBusinesses= microBusinessRepository.findByCategoryAndDeletedFalse(category);
         return microBusinesses.stream()
                 .map(microBusiness -> modelMapper.map(microBusiness, MicroBusinessDTO.class))
                 .collect(Collectors.toList());
@@ -81,5 +86,25 @@ public class MicroBusinessImpl implements IMicroBusinessService {
         return Arrays.stream(Category.values())
                 .map(category -> modelMapper.map(category, CategoryDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Set<MicroBusinessDTO> findByUserEmailMicroBusiness(String email) {
+        var setMicroBusiness = microBusinessRepository.findByUserEmailAndDeletedFalse(email);
+        return setMicroBusiness.stream()
+                        .map(microBusiness -> modelMapper.map(microBusiness, MicroBusinessDTO.class))
+                        .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Optional<MicroBusiness> findByIdAndUserEmail(Long id, String email) {
+        return microBusinessRepository.findByIdAndUserEmailAndDeletedFalse(id, email);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id, String email) {
+        var micro = microBusinessRepository.findByIdAndUserEmailAndDeletedFalse(id, email).get();
+        micro.setDeleted(true);
     }
 }
