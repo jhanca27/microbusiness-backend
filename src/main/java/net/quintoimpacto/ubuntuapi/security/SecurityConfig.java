@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/").permitAll()
                                 .requestMatchers("/admin", "/**" ).hasAuthority("admin") // Ajuste aquí
                                 .requestMatchers(HttpMethod.POST, "/images/uploadBase64").hasAuthority("admin")
                                 .requestMatchers(HttpMethod.PUT, "/images/updateBase64").hasAuthority("admin")
