@@ -15,7 +15,6 @@ import net.quintoimpacto.ubuntuapi.security.jwt.JwtTokenAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
@@ -37,18 +36,20 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/").permitAll()
-                                .requestMatchers("/admin", "/**" ).hasAuthority("admin") // Ajuste aquí
-                                .requestMatchers(HttpMethod.POST, "/images/uploadBase64").hasAuthority("admin")
-                                .requestMatchers(HttpMethod.PUT, "/images/updateBase64").hasAuthority("admin")
-                                .requestMatchers(HttpMethod.DELETE, "/images/{id}").hasAuthority("admin")
+                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}").permitAll()
+                                .requestMatchers("/user").hasRole("USER")
+                                .requestMatchers("/microbusiness/findAll").hasAnyRole("USER","ADMIN")
+                                .requestMatchers("/microbusiness/**").hasRole("ADMIN")
+                                .requestMatchers("/admin").hasRole("ADMIN") // Ajuste aquí
                                 .anyRequest().authenticated()
+                                //.requestMatchers("/images","/**").hasRole("ADMIN")        
+                               
+                                
                 )
                 .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/oauth2/authorization/google")
                         .defaultSuccessUrl("/user", true)
-                        .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint.oidcUserService(customOidcUserService))
                         .successHandler(customAuthenticationSuccessHandler)
                 )
                 .logout(logout -> logout

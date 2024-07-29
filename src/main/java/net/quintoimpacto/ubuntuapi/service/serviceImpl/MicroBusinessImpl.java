@@ -23,9 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
-import net.quintoimpacto.ubuntuapi.repository.IMicroBusinessRepository;
-import net.quintoimpacto.ubuntuapi.service.IMicroBusinessService;
+
 
 @Service
 public class MicroBusinessImpl implements IMicroBusinessService {
@@ -106,5 +104,12 @@ public class MicroBusinessImpl implements IMicroBusinessService {
     public void delete(Long id, String email) {
         var micro = microBusinessRepository.findByIdAndUserEmailAndDeletedFalse(id, email).get();
         micro.setDeleted(true);
+    }
+
+    @Override
+    public List<MicroBusinessDTO> findAll() {
+        return microBusinessRepository.findAllByDeletedFalse().stream()
+                                        .map(micro -> modelMapper.map(micro, MicroBusinessDTO.class))
+                                        .toList();
     }
 }

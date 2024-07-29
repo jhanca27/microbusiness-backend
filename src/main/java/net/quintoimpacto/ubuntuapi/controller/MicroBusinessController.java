@@ -42,15 +42,14 @@ public class MicroBusinessController {
     @Autowired
     private IUserService userService;
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    
     @PostMapping("/")
     public ResponseEntity<MicroBusinessShowDto> save(@RequestBody MicroBusinessRegisterDTO microBusinessDTO) {
-        System.out.println(microBusinessDTO);
         var microBusiness = microBusinessService.save(microBusinessDTO);
         return new ResponseEntity<>( microBusiness , HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody MicroBusinessDTO microBusinessDTO, @PathVariable Long id){
         String email = getUserPrincipal();
@@ -65,13 +64,13 @@ public class MicroBusinessController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping("/findAll")
     public ResponseEntity<List<MicroBusinessDTO>> findAllMicro() {
         var listMicroBusiness = microBusinessService.findAll();
         return  ResponseEntity.status(HttpStatus.OK).body(listMicroBusiness);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+
     @GetMapping("/")
     public ResponseEntity<?> searhByName(@RequestParam("search") String name) {
         var setMicroBusinessDTO = microBusinessService.findByName(name);
@@ -88,15 +87,15 @@ public class MicroBusinessController {
         return ResponseEntity.status(HttpStatus.OK).body(microBusinessService.getAllCategory());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/allMicro")
+    
+    @GetMapping("/findAllUser")
     public ResponseEntity<Set<MicroBusinessDTO>> findAllMicroByUser() {
         String email = getUserPrincipal();
         var listMicroBusiness = microBusinessService.findByUserEmailMicroBusiness(email);
         return  ResponseEntity.status(HttpStatus.OK).body(listMicroBusiness);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMicros(@PathVariable Long id) {
         String email = getUserPrincipal();

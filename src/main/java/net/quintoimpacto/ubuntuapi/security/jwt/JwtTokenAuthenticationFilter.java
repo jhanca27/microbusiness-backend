@@ -55,7 +55,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private List<GrantedAuthority> getAuthorities(String rolesString) {
         return Arrays.stream(rolesString.split(","))
-                .map(SimpleGrantedAuthority::new)
+                .map(role -> new SimpleGrantedAuthority("ROLE_"+ role))
                 .collect(Collectors.toList());
     }
 
