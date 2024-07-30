@@ -26,6 +26,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Value("${FRONTEND_URL}")
     private String frontendUrl;
 
+    @Value("${FRONTEND_URL_UNAUTHORIZED}")
+    private String frontendUrlUnauthorized;
+
     @Autowired
     private IUserService userService;
 
@@ -51,7 +54,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
             response.sendRedirect(frontendUrl + "/?token=" + token);
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
+            response.sendRedirect(frontendUrlUnauthorized);
         }
     }
 }
