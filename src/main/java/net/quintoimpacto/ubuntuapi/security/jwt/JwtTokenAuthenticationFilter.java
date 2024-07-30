@@ -1,12 +1,14 @@
 package net.quintoimpacto.ubuntuapi.security.jwt;
 
-import com.google.api.client.util.Value;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,7 +38,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             try {
                 Claims claims = getClaims(secretKeyConfig, token);
                 String username = claims.getSubject();
-                String rolesString = claims.get("roles", String.class);
+                String rolesString = claims.get("role", String.class);
                 List<GrantedAuthority> authorities = getAuthorities(rolesString);
 
                 if (username != null) {
@@ -53,7 +55,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private List<GrantedAuthority> getAuthorities(String rolesString) {
         return Arrays.stream(rolesString.split(","))
-                .map(SimpleGrantedAuthority::new)
+                .map(role -> new SimpleGrantedAuthority("ROLE_"+ role))
                 .collect(Collectors.toList());
     }
 

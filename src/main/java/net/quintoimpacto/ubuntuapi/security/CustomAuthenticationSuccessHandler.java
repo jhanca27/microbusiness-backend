@@ -37,11 +37,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
         String email = oidcUser.getEmail();
 
-        // Buscar el usuario en la base de datos
         User user = userService.findUserByEmail(email);
 
         if (user != null) {
-            // Crear el token JWT con los datos del usuario
             String token = Jwts.builder()
                     .setSubject(email)
                     .claim("first_name", user.getFirst_name())
@@ -51,8 +49,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                     .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 hora
                     .signWith(SignatureAlgorithm.HS512, secretKey)
                     .compact();
-
-            response.sendRedirect(frontendUrl + "/?token=" + token);
+                    response.sendRedirect(frontendUrl + "/?token=" + token);
+            // response.setContentType("application/json");
+            // response.setCharacterEncoding("UTF-8");
+            // response.getWriter().write("{\"token\": \"" + token + "\"}");
         } else {
             response.sendRedirect(frontendUrlUnauthorized);
         }

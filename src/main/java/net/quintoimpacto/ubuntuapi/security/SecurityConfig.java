@@ -3,9 +3,11 @@ package net.quintoimpacto.ubuntuapi.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -15,7 +17,6 @@ import net.quintoimpacto.ubuntuapi.security.jwt.JwtTokenAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
 
         private final JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
@@ -33,18 +34,25 @@ public class SecurityConfig {
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-                http
+                http.csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                                                .requestMatchers("/", "/login/oauth2/**", "/error", "/microbusiness/")
+                                                .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images",
+                                                                "images/{id}")
                                                 .permitAll()
-                                                .requestMatchers("/admin").hasAuthority("admin")
-                                                .requestMatchers(HttpMethods.GET, "/countries", "/provinces").permitAll()
-                                                .anyRequest().authenticated())
+                                                .requestMatchers("/user").hasRole("USER")
+                                                .requestMatchers("/microbusiness/findAll").hasAnyRole("USER", "ADMIN")
+                                                .requestMatchers("/microbusiness/**").hasRole("ADMIN")
+                                                .requestMatchers("/admin").hasRole("ADMIN") // Ajuste aquí
+                                                .anyRequest().authenticated()
+                                // .requestMatchers("/images","/**").hasRole("ADMIN")
+
+                                )
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .oauth2Login(oauth2 -> oauth2
                                                 .loginPage("/oauth2/authorization/google")
                                                 .defaultSuccessUrl("/user", true)
-                                                .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
-                                                                .oidcUserService(customOidcUserService))
                                                 .successHandler(customAuthenticationSuccessHandler))
                                 .logout(logout -> logout
                                                 .logoutSuccessUrl("/").permitAll())

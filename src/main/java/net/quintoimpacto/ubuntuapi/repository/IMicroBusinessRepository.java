@@ -1,6 +1,7 @@
 package net.quintoimpacto.ubuntuapi.repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import net.quintoimpacto.ubuntuapi.entity.enums.Category;
@@ -11,6 +12,9 @@ import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
 
 @Repository
 public interface IMicroBusinessRepository extends JpaRepository<MicroBusiness,Long>{
-    Set<MicroBusiness> findByNameContainingIgnoreCase(String name);
-    List<MicroBusiness> findByCategory(Category category);
+    Set<MicroBusiness> findByNameContainingIgnoreCaseAndDeletedFalse(String name);
+    List<MicroBusiness> findByCategoryAndDeletedFalse(Category category);
+    Set<MicroBusiness> findByUserEmailAndDeletedFalse(String email);
+    Optional<MicroBusiness> findByIdAndUserEmailAndDeletedFalse(long id, String email);
+    List<MicroBusiness> findAllByDeletedFalse();
 }

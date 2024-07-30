@@ -1,3 +1,4 @@
+
 package net.quintoimpacto.ubuntuapi.service;
 
 import net.quintoimpacto.ubuntuapi.dto.UserDTO;

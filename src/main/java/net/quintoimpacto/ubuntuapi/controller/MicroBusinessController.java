@@ -2,15 +2,22 @@ package net.quintoimpacto.ubuntuapi.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import net.quintoimpacto.ubuntuapi.dto.CategoryDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessRegisterDTO;
 import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessShowDto;
+import net.quintoimpacto.ubuntuapi.dto.microbusinessDTO.MicroBusinessUpdateDTO;
 import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,34 +28,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
+import net.quintoimpacto.ubuntuapi.entity.User;
 import net.quintoimpacto.ubuntuapi.service.IMicroBusinessService;
+import net.quintoimpacto.ubuntuapi.service.IUserService;
 
 @RestController
 @RequestMapping("/microbusiness")
 public class MicroBusinessController {
-    
+
     @Autowired
     private IMicroBusinessService microBusinessService;
 
+    @Autowired
+    private IUserService userService;
+
+    
     @PostMapping("/")
     public ResponseEntity<MicroBusinessShowDto> save(@RequestBody MicroBusinessRegisterDTO microBusinessDTO) {
-        System.out.println(microBusinessDTO);
         var microBusiness = microBusinessService.save(microBusinessDTO);
         return new ResponseEntity<>( microBusiness , HttpStatus.CREATED);
     }
 
+    
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody MicroBusinessDTO microBusinessDTO, @PathVariable Long id){
-        Optional<MicroBusiness> microBusinessOptional = microBusinessService.findById(id);
-
+        String email = getUserPrincipal();
+        Optional<MicroBusiness> microBusinessOptional = microBusinessService.findByIdAndUserEmail(id,email);
+        
         if(microBusinessOptional.isPresent()){
-            microBusinessService.update(microBusinessDTO);
+            microBusinessService.update(microBusinessDTO, id);
             return ResponseEntity.ok("Registro actualizado");
         }else{
             return ResponseEntity.notFound().build();
-        }
+        } 
 
     }
+
+    @GetMapping("/findAll")
+    public ResponseEntity<List<MicroBusinessDTO>> findAllMicro() {
+        var listMicroBusiness = microBusinessService.findAll();
+        return  ResponseEntity.status(HttpStatus.OK).body(listMicroBusiness);
+    }
+
 
     @GetMapping("/")
     public ResponseEntity<?> searhByName(@RequestParam("search") String name) {
@@ -65,4 +86,33 @@ public class MicroBusinessController {
     private ResponseEntity<List<CategoryDTO>> searchAllCategory(){
         return ResponseEntity.status(HttpStatus.OK).body(microBusinessService.getAllCategory());
     }
+
+    
+    @GetMapping("/findAllUser")
+    public ResponseEntity<Set<MicroBusinessDTO>> findAllMicroByUser() {
+        String email = getUserPrincipal();
+        var listMicroBusiness = microBusinessService.findByUserEmailMicroBusiness(email);
+        return  ResponseEntity.status(HttpStatus.OK).body(listMicroBusiness);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMicros(@PathVariable Long id) {
+        String email = getUserPrincipal();
+
+        Optional<MicroBusiness> microBusinessOptional = microBusinessService.findByIdAndUserEmail(id,email);
+        
+        if(microBusinessOptional.isPresent()){
+            microBusinessService.delete(id,email);
+            return ResponseEntity.ok("Registro eliminado");
+        }else{
+            return ResponseEntity.notFound().build();
+        } 
+    }
+
+    private String getUserPrincipal(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getPrincipal().toString();
+    }
+   
 }
