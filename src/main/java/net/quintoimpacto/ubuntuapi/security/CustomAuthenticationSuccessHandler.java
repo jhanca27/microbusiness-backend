@@ -50,9 +50,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                     .signWith(SignatureAlgorithm.HS512, secretKey)
                     .compact();
                     response.sendRedirect(frontendUrl + "/?token=" + token);
-            // response.setContentType("application/json");
-            // response.setCharacterEncoding("UTF-8");
-            // response.getWriter().write("{\"token\": \"" + token + "\"}");
+                    // response.setContentType("application/json");
+                    // response.setCharacterEncoding("UTF-8");
+                    // response.getWriter().write("{\"token\": \"" + token + "\"}");
         } else {
             response.sendRedirect(frontendUrlUnauthorized);
         }
