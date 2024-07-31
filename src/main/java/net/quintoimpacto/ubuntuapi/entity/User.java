@@ -30,7 +30,7 @@ public class User {
     @Column(columnDefinition = "boolean default false")
     private boolean deleted;
 
-    @Column(columnDefinition = "varchar(10) default 'admin'")
+    @Column(columnDefinition = "varchar(10) default 'ADMIN'")
     private String role;
 
     @Column(nullable = false)

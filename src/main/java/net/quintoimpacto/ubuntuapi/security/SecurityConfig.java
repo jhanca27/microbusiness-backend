@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -32,32 +31,31 @@ public class SecurityConfig {
                 this.customOidcUserService = customOidcUserService;
         }
 
-        @Bean
-        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-                http.csrf(csrf -> csrf.disable())
-                                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                                                .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
-                                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images",
-                                                                "images/{id}")
-                                                .permitAll()
-                                                .requestMatchers("/user").hasRole("USER")
-                                                .requestMatchers("/microbusiness/findAll").hasAnyRole("USER", "ADMIN")
-                                                .requestMatchers("/microbusiness/**").hasRole("ADMIN")
-                                                .requestMatchers("/admin").hasRole("ADMIN") // Ajuste aquí
-                                                .anyRequest().authenticated()
-                                // .requestMatchers("/images","/**").hasRole("ADMIN")
-
-                                )
-                                .sessionManagement(session -> session
-                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                                .oauth2Login(oauth2 -> oauth2
-                                                .loginPage("/oauth2/authorization/google")
-                                                .defaultSuccessUrl("/user", true)
-                                                .successHandler(customAuthenticationSuccessHandler))
-                                .logout(logout -> logout
-                                                .logoutSuccessUrl("/").permitAll())
-                                .addFilterBefore(jwtTokenAuthenticationFilter,
-                                                UsernamePasswordAuthenticationFilter.class);
-                return http.build();
-        }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http    .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/findAll").permitAll()
+                                .requestMatchers("/user").hasRole("USER")
+                                .requestMatchers("/microbusiness/**").hasRole("ADMIN")
+                                .requestMatchers("/admin").hasRole("ADMIN") // Ajuste aquí
+                                .anyRequest().authenticated()
+                                //.requestMatchers("/images","/**").hasRole("ADMIN")        
+                               
+                                
+                )
+                .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/oauth2/authorization/google")
+                        .defaultSuccessUrl("/user", true)
+                        .successHandler(customAuthenticationSuccessHandler)
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/").permitAll()
+                )
+                .addFilterBefore(jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
 }
