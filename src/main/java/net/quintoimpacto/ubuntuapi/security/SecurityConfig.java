@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -36,9 +35,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/findAll").permitAll()
                                 .requestMatchers("/user").hasRole("USER")
-                                .requestMatchers("/microbusiness/findAll").hasAnyRole("USER","ADMIN")
                                 .requestMatchers("/microbusiness/**").hasRole("ADMIN")
                                 .requestMatchers("/admin").hasRole("ADMIN") // Ajuste aquí
                                 .anyRequest().authenticated()
