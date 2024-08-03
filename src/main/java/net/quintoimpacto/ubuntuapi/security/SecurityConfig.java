@@ -34,7 +34,7 @@ public class SecurityConfig {
         http    .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
+                                .requestMatchers("/", "/login/oauth2/**", "/error", "/contact/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/findAll").permitAll()
                                 .requestMatchers("/user").hasRole("USER")
                                 .requestMatchers("/microbusiness/**").hasRole("ADMIN")
