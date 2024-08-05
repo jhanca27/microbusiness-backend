@@ -17,4 +17,5 @@ public interface IMicroBusinessRepository extends JpaRepository<MicroBusiness,Lo
     Set<MicroBusiness> findByUserEmailAndDeletedFalse(String email);
     Optional<MicroBusiness> findByIdAndUserEmailAndDeletedFalse(long id, String email);
     List<MicroBusiness> findAllByDeletedFalse();
+    Optional<MicroBusiness> findByIdAndDeletedFalse(Long id);
 }
