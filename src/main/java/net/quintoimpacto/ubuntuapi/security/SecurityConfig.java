@@ -34,8 +34,10 @@ public class SecurityConfig {
         http    .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/login/oauth2/**", "/error", "/contact/**").permitAll()
+                                .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/findAll").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/contact/").permitAll()
+                                .requestMatchers("/contact/**").hasRole("ADMIN")
                                 .requestMatchers("/user").hasRole("USER")
                                 .requestMatchers("/microbusiness/**").hasRole("ADMIN")
                                 .requestMatchers("/admin").hasRole("ADMIN") // Ajuste aquí

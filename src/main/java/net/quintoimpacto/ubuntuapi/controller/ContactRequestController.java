@@ -38,7 +38,6 @@ public class ContactRequestController {
         Optional<ContactRequestShowDTO> contactFind = contactRequestService.findById(id);
 
         if(contactFind.isPresent()){
-            System.out.println("entró");
             contactRequestService.update(contactDTO, id);
             return  ResponseEntity.ok("Registro actualizado");
         }else{
@@ -73,6 +72,18 @@ public class ContactRequestController {
     @GetMapping("/search/microbusiness/{id}")
     public ResponseEntity<List<ContactRequestShowDTO>> searchByMicrobusiness(@PathVariable Long id){
         var listContactRequests = contactRequestService.findByMicrobusinessId(id);
+        return  new ResponseEntity<>(listContactRequests, HttpStatus.OK);
+    }
+
+    @GetMapping("/search/manage")
+    public ResponseEntity<List<ContactRequestShowDTO>> searchManage(){
+        var listContactRequests = contactRequestService.findByManage();
+        return  new ResponseEntity<>(listContactRequests, HttpStatus.OK);
+    }
+
+    @GetMapping("/search/nomanage")
+    public ResponseEntity<List<ContactRequestShowDTO>> searchNOManage(){
+        var listContactRequests = contactRequestService.findByNoManage();
         return  new ResponseEntity<>(listContactRequests, HttpStatus.OK);
     }
 

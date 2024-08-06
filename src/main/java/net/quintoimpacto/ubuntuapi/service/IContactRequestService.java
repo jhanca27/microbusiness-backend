@@ -13,4 +13,6 @@ public interface IContactRequestService {
     Optional<ContactRequestShowDTO> findById(Long id);
     void delete(Long id);
     List<ContactRequestShowDTO> findByMicrobusinessId(Long idMicrobussiness);
+    List<ContactRequestShowDTO> findByManage();
+    List<ContactRequestShowDTO> findByNoManage();
 }

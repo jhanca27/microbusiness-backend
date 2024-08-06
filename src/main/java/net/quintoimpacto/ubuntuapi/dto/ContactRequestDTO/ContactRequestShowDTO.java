@@ -25,7 +25,7 @@ public class ContactRequestShowDTO {
     @NotNull(message = "Mensaje no puede estar vacío")
     private String message;
 
-    private String requestData;
+    private boolean stateRequest;
 
     private String microBusinessName;
 }
