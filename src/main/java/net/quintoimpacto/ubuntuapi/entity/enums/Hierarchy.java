@@ -12,4 +12,13 @@ public enum Hierarchy {
     COSTS("¿Cúales son los costos de participar en Ubuntu?");
 
     private String description;
+
+    public static Hierarchy fromDescription(String description) {
+        for (Hierarchy hierarchy : Hierarchy.values()) {
+            if (hierarchy.getDescription().equals(description)) {
+                return hierarchy;
+            }
+        }
+        throw new IllegalArgumentException("No matching hierarchy for description: " + description);
+    }
 }
