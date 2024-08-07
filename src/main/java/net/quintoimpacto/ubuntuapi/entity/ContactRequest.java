@@ -2,7 +2,12 @@ package net.quintoimpacto.ubuntuapi.entity;
 
 
 
+import java.time.LocalDate;
+
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,6 +46,17 @@ public class ContactRequest {
     private String email;
 
     
+    @CreationTimestamp
+    @DateTimeFormat(iso = DateTimeFormat.ISO.NONE, pattern = "dd-MM-yyyy")
+    @Column(name = "date_created", updatable = false)
+    private LocalDate dateCreated;
+
+    
+    @UpdateTimestamp
+    @DateTimeFormat(iso = DateTimeFormat.ISO.NONE,pattern = "dd-MM-yyyy")
+    @Column(name = "date_updated", updatable = true)
+    private LocalDate dateUpdated;
+
     private String phoneNumber;
 
     @NotNull(message = "Mensaje no puede estar vacío")
