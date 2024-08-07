@@ -43,9 +43,9 @@ public class MicroBusinessImpl implements IMicroBusinessService {
     }
 
     @Override
-    public void update(MicroBusinessDTO microBusinessDTO, Long id) {
-        modelMapper.getConfiguration().isSkipNullEnabled();
-        var microBusinessToUpdate = microBusinessRepository.findById(id).get();
+    public void update(MicroBusinessUpdateDTO microBusinessDTO, Long id) {
+        var microBusinessToUpdate = microBusinessRepository.findByIdAndDeletedFalse(id).get();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
         modelMapper.map(microBusinessDTO, microBusinessToUpdate);
         microBusinessRepository.save(microBusinessToUpdate);
     }
