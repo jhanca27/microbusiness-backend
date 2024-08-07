@@ -51,7 +51,7 @@ public class MicroBusinessController {
 
     
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@RequestBody MicroBusinessDTO microBusinessDTO, @PathVariable Long id){
+    public ResponseEntity<?> update(@RequestBody MicroBusinessUpdateDTO microBusinessDTO, @PathVariable Long id){
         //String email = getUserPrincipal();
         Optional<MicroBusinessDTO> microBusinessOptional = microBusinessService.findById(id);
         
