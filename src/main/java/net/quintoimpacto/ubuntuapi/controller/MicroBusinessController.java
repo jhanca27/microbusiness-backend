@@ -42,11 +42,11 @@ public class MicroBusinessController {
     @Autowired
     private IUserService userService;
 
-    
+
     @PostMapping("/")
     public ResponseEntity<MicroBusinessShowDto> save(@RequestBody MicroBusinessRegisterDTO microBusinessDTO) {
-        var microBusiness = microBusinessService.save(microBusinessDTO);
-        return new ResponseEntity<>( microBusiness , HttpStatus.CREATED);
+        MicroBusinessShowDto microBusiness = microBusinessService.save(microBusinessDTO);
+        return new ResponseEntity<>(microBusiness, HttpStatus.CREATED);
     }
 
     
