@@ -23,8 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
 @Service
 public class MicroBusinessImpl implements IMicroBusinessService {
 
@@ -45,10 +43,10 @@ public class MicroBusinessImpl implements IMicroBusinessService {
     }
 
     @Override
-    public void update(MicroBusinessDTO microBusinessDTO,Long id) {
+    public void update(MicroBusinessDTO microBusinessDTO, Long id) {
         modelMapper.getConfiguration().isSkipNullEnabled();
         var microBusinessToUpdate = microBusinessRepository.findById(id).get();
-        modelMapper.map(microBusinessDTO,microBusinessToUpdate);
+        modelMapper.map(microBusinessDTO, microBusinessToUpdate);
         microBusinessRepository.save(microBusinessToUpdate);
     }
 
@@ -67,13 +65,13 @@ public class MicroBusinessImpl implements IMicroBusinessService {
     @Override
     public Set<MicroBusinessDTO> findByName(String name) {
         return microBusinessRepository.findByNameContainingIgnoreCaseAndDeletedFalse(name).stream()
-                                                        .map(micro -> modelMapper.map(micro, MicroBusinessDTO.class))
-                                                        .collect(Collectors.toSet());
+                .map(micro -> modelMapper.map(micro, MicroBusinessDTO.class))
+                .collect(Collectors.toSet());
     }
 
     @Override
     public List<MicroBusinessDTO> findByCategory(Category category) {
-        List<MicroBusiness> microBusinesses= microBusinessRepository.findByCategoryAndDeletedFalse(category);
+        List<MicroBusiness> microBusinesses = microBusinessRepository.findByCategoryAndDeletedFalse(category);
         return microBusinesses.stream()
                 .map(microBusiness -> modelMapper.map(microBusiness, MicroBusinessDTO.class))
                 .collect(Collectors.toList());
@@ -90,8 +88,8 @@ public class MicroBusinessImpl implements IMicroBusinessService {
     public Set<MicroBusinessDTO> findByUserEmailMicroBusiness(String email) {
         var setMicroBusiness = microBusinessRepository.findByUserEmailAndDeletedFalse(email);
         return setMicroBusiness.stream()
-                        .map(microBusiness -> modelMapper.map(microBusiness, MicroBusinessDTO.class))
-                        .collect(Collectors.toSet());
+                .map(microBusiness -> modelMapper.map(microBusiness, MicroBusinessDTO.class))
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -109,7 +107,7 @@ public class MicroBusinessImpl implements IMicroBusinessService {
     @Override
     public List<MicroBusinessDTO> findAll() {
         return microBusinessRepository.findAllByDeletedFalse().stream()
-                                        .map(micro -> modelMapper.map(micro, MicroBusinessDTO.class))
-                                        .toList();
+                .map(micro -> modelMapper.map(micro, MicroBusinessDTO.class))
+                .toList();
     }
 }

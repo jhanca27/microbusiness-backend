@@ -22,18 +22,18 @@ public class ImageController {
     private CloudinaryService cloudinaryService;
 
     @PostMapping("/uploadBase64")
-    public ResponseEntity<?> uploadBase64File(@RequestParam("fileBase64") String fileBase64, @RequestParam("microBusinessId") Long microBusinessId) {
+    public ResponseEntity<?> uploadBase64File(@RequestBody() ImageDTO imageDTO) {
         try {
-            Map<String, Object> result = cloudinaryService.uploadBase64File(fileBase64);
+            Map<String, Object> result = cloudinaryService.uploadBase64File(imageDTO.getFileBase64());
 
-            ImageDTO imageDTO = new ImageDTO();
-            imageDTO.setPublicId((String) result.get("public_id"));
-            imageDTO.setUrl((String) result.get("url"));
+            ImageDTO image2DTO = new ImageDTO();
+            image2DTO.setPublicId((String) result.get("public_id"));
+            image2DTO.setUrl((String) result.get("url"));
 
             // Asociar la imagen al microemprendimiento antes de guardarla
-            ImageDTO savedImage = imageService.saveImageWithMicroBusiness(microBusinessId, imageDTO);
+            ImageDTO savedImage = imageService.saveImageWithMicroBusiness(imageDTO.getMicroBusinessId(), image2DTO );
 
-            System.out.println("Imagen Base64 subida y guardada en la base de datos con ID: " + savedImage.getId() + " y asociada al microemprendimiento con ID: " + microBusinessId);
+            System.out.println("Imagen Base64 subida y guardada en la base de datos con ID: " + savedImage.getId() + " y asociada al microemprendimiento con ID: " + imageDTO.getMicroBusinessId());
 
             return ResponseEntity.ok(result);
         } catch (Exception e) {
