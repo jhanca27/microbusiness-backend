@@ -27,4 +27,11 @@ public class ProvinceServiceImpl implements IProvinceService {
                 .map(p -> mapper.map(p, ProvinceDTO.class))
                 .collect(Collectors.toSet());
     }
+
+    @Override
+    public List<ProvinceDTO> findByCountryId(Long countryId) {
+        return provinceRepository.findByCountryId(countryId).stream()
+                .map(province -> modelMapper.map(province, ProvinceDTO.class))
+                .collect(Collectors.toList());
+    }
 }

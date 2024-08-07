@@ -12,6 +12,8 @@ import net.quintoimpacto.ubuntuapi.entity.enums.Category;
 @AllArgsConstructor
 public class MicroBusinessShowDto {
 
+    private Long id;
+
     private String name;
 
     private String description;
