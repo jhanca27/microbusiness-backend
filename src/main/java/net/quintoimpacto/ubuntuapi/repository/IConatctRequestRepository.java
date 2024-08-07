@@ -10,4 +10,6 @@ import net.quintoimpacto.ubuntuapi.entity.ContactRequest;
 @Repository
 public interface IConatctRequestRepository extends JpaRepository<ContactRequest,Long> {
     List<ContactRequest> findByMicroBusinessId(Long idMicrobussiness);
+    List<ContactRequest> findByStateRequestTrue();
+    List<ContactRequest> findByStateRequestFalse();
 }

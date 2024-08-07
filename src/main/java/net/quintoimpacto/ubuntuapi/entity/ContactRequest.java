@@ -4,6 +4,7 @@ package net.quintoimpacto.ubuntuapi.entity;
 
 import org.hibernate.annotations.DynamicInsert;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -45,7 +46,8 @@ public class ContactRequest {
     @NotNull(message = "Mensaje no puede estar vacío")
     private String message;
 
-    private String requestData;
+    @Column(columnDefinition = "boolean default false")
+    private boolean stateRequest;
 
     @ManyToOne
     @JoinColumn(name = "micro_id", nullable = true )
