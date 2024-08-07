@@ -16,6 +16,9 @@ import net.quintoimpacto.ubuntuapi.entity.MicroBusiness;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContactRequestShowDTO {
+
+    private Long id;
+    
     @NotNull(message = "Nombre no puede estar vacío")
     private String fullName;
 
