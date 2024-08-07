@@ -52,8 +52,8 @@ public class MicroBusinessController {
     
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody MicroBusinessDTO microBusinessDTO, @PathVariable Long id){
-        String email = getUserPrincipal();
-        Optional<MicroBusiness> microBusinessOptional = microBusinessService.findByIdAndUserEmail(id,email);
+        //String email = getUserPrincipal();
+        Optional<MicroBusinessDTO> microBusinessOptional = microBusinessService.findById(id);
         
         if(microBusinessOptional.isPresent()){
             microBusinessService.update(microBusinessDTO, id);
@@ -98,12 +98,12 @@ public class MicroBusinessController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMicros(@PathVariable Long id) {
-        String email = getUserPrincipal();
+        //String email = getUserPrincipal();
 
-        Optional<MicroBusiness> microBusinessOptional = microBusinessService.findByIdAndUserEmail(id,email);
+        Optional<MicroBusinessDTO> microBusinessOptional = microBusinessService.findById(id);
         
         if(microBusinessOptional.isPresent()){
-            microBusinessService.delete(id,email);
+            microBusinessService.delete(id);
             return ResponseEntity.ok("Registro eliminado");
         }else{
             return ResponseEntity.notFound().build();
