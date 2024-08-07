@@ -1,11 +1,10 @@
-package net.quintoimpacto.ubuntuapi.dto;
+package net.quintoimpacto.ubuntuapi.chatbot.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.quintoimpacto.ubuntuapi.entity.Answer;
 
 import java.util.List;
 
@@ -15,11 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 public class QuestionDTO {
 
+    private Long id;
     @NotNull(message = "The question cannot be null.")
     private String questionText;
     private String hierarchyDescription;
     private boolean active;
     private boolean initial;
-    private List<Answer> answers;
-    private Answer answer;
+    private List<AnswerDTO> answers;
 }

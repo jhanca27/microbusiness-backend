@@ -1,4 +1,4 @@
-package net.quintoimpacto.ubuntuapi.entity.enums;
+package net.quintoimpacto.ubuntuapi.chatbot.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,9 @@ public enum Hierarchy {
 
     CONTACT("¿Cómo puedo contactar a los emprendedores?"),
     ADD_MICROBUSINESS("¿Cómo sumar mi emprendimiento a Ubuntu?"),
-    COSTS("¿Cúales son los costos de participar en Ubuntu?");
+    COSTS("¿Cúales son los costos de participar en Ubuntu?"),
+
+    GENERAL("Otras preguntas");
 
     private String description;
 

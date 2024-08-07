@@ -1,8 +1,8 @@
-package net.quintoimpacto.ubuntuapi.mapper;
+package net.quintoimpacto.ubuntuapi.chatbot.mapper;
 
-import net.quintoimpacto.ubuntuapi.dto.QuestionDTO;
-import net.quintoimpacto.ubuntuapi.entity.Question;
-import net.quintoimpacto.ubuntuapi.entity.enums.Hierarchy;
+import net.quintoimpacto.ubuntuapi.chatbot.dto.QuestionDTO;
+import net.quintoimpacto.ubuntuapi.chatbot.entity.Question;
+import net.quintoimpacto.ubuntuapi.chatbot.enums.Hierarchy;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

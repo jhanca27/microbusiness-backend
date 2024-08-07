@@ -1,9 +1,9 @@
-package net.quintoimpacto.ubuntuapi.controller;
+package net.quintoimpacto.ubuntuapi.chatbot.controller;
 
 import jakarta.validation.Valid;
-import net.quintoimpacto.ubuntuapi.dto.QuestionDTO;
+import net.quintoimpacto.ubuntuapi.chatbot.dto.QuestionDTO;
 import net.quintoimpacto.ubuntuapi.exception.ValidateIntegrity;
-import net.quintoimpacto.ubuntuapi.service.IQuestionService;
+import net.quintoimpacto.ubuntuapi.chatbot.service.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +30,18 @@ public class QuestionController {
         }
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<QuestionDTO>> getAllQuestions(){
-        return ResponseEntity.status(HttpStatus.OK).body(questionService.getAllQuestion());
-    }
-
     @GetMapping("/initial")
     public ResponseEntity<List<QuestionDTO>> getInitialQuestions(){
-        return ResponseEntity.status(HttpStatus.OK).body(questionService.getInitialQuestion());
+        return ResponseEntity.status(HttpStatus.OK).body(questionService.getInitialQuestions());
+    }
+
+    @GetMapping("/subquestions/{answerId}")
+    public ResponseEntity<List<QuestionDTO>> getSubQuestions(@PathVariable Long answerId) {
+        try {
+            return ResponseEntity.ok(questionService.getSubQuestions(answerId));
+        } catch (ValidateIntegrity e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PutMapping("/update/{id}")

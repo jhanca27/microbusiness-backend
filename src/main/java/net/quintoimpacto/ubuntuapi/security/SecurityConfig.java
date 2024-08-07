@@ -36,11 +36,11 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/", "/login/oauth2/**", "/error", "/contact/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/findAll").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/questions/all", "/questions/initial", "/answers/all").permitAll()
+                                .requestMatchers(HttpMethod.GET,  "/questions/initial", "/questions/subquestions/{answerId}", "/answer/all").permitAll()
                                 .requestMatchers("/user").hasRole("USER")
                                 .requestMatchers("/admin").hasRole("ADMIN")
                                 .requestMatchers("/microbusiness/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/questions/create", "/answers/create").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/questions/create", "/answer/create").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/questions/update/{id}").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                                 //.requestMatchers("/images","/**").hasRole("ADMIN")
