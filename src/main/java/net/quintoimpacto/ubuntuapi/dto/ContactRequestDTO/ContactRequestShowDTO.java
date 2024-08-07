@@ -1,5 +1,7 @@
 package net.quintoimpacto.ubuntuapi.dto.ContactRequestDTO;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,10 @@ public class ContactRequestShowDTO {
     private String email;
 
     private String phoneNumber;
+
+    private LocalDate dateCreated;
+
+    private LocalDate dateUpdated;
 
     @NotNull(message = "Mensaje no puede estar vacío")
     private String message;
