@@ -22,6 +22,6 @@ public interface IMicroBusinessService {
     public List<CategoryDTO> getAllCategory();
     public Set<MicroBusinessDTO> findByUserEmailMicroBusiness(String email);
     public Optional<MicroBusiness> findByIdAndUserEmail(Long id, String email);
-    public void delete(Long id, String email);
+    public void delete(Long id);
     public List<MicroBusinessDTO> findAll();
 }
