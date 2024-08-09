@@ -1,7 +1,6 @@
 package net.quintoimpacto.ubuntuapi.dto.ContactRequestDTO;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,7 +26,7 @@ public class ContactRequestDTO {
     @NotNull(message = "Mensaje no puede estar vacío")
     private String message;
 
-    private String requestData;
+    private boolean stateRequest;
 
     private MicroBusiness microBusiness;
 }

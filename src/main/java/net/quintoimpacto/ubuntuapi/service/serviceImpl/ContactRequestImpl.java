@@ -73,6 +73,22 @@ public class ContactRequestImpl implements IContactRequestService {
                 .toList();
     }
 
+    @Override
+    public List<ContactRequestShowDTO> findByManage() {
+        var listContactRequests = contactRepository.findByStateRequestTrue();
+        return listContactRequests.stream()
+                .map(contactRequest -> modelMapper.map(contactRequest, ContactRequestShowDTO.class))
+                .toList();
+    }
+
+    @Override
+    public List<ContactRequestShowDTO> findByNoManage() {
+        var listContactRequests = contactRepository.findByStateRequestFalse();
+        return listContactRequests.stream()
+                .map(contactRequest -> modelMapper.map(contactRequest, ContactRequestShowDTO.class))
+                .toList();
+    }
+
 
 
 }
