@@ -37,4 +37,6 @@ public class ContactRequestShowDTO {
     private boolean stateRequest;
 
     private String microBusinessName;
+
+    private Long microBusinessId;
 }
