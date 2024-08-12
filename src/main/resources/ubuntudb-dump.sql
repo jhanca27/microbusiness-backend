@@ -130,7 +130,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (0,1,'jhan@gmail.com','Jhan','Ca','32516136513','ADMIN'),(0,2,'maricarolinagomez88@gmail.com','Carolina','Gomez','1234567890','ADMIN'),(0,3,'alonngadea@gmail.com','Alondra','Gadea','0987654321','ADMIN'),(0,4,'walterportadev@gmail.com','Walter','Porta','1112223333','ADMIN'),(0,5,'maurojim123@gmail.com','Mauro','Jim','4445556666','ADMIN'),(0,6,'pablogalindo90@gmail.com','Pablo','Galindo','7778889999','ADMIN'),(0,7,'ubuntuorganizationproyect@gmail.com','Ubuntu','Organization','33322211151','ADMIN'),(0,8,'grace.moore@example.com','Grace','Moore','6665554444','ADMIN'),(0,9,'hank.taylor@example.com','Hank','Taylor','9998887777','ADMIN'),(0,10,'ivy.anderson@example.com','Ivy','Anderson','2223334445','ADMIN');
+INSERT INTO `users` VALUES (0,1,'jhan@gmail.com','Jhan','Ca','32516136513','ADMIN'),(0,2,'mariacarolinagomez88@gmail.com','Carolina','Gomez','1234567890','ADMIN'),(0,3,'alonngadea@gmail.com','Alondra','Gadea','0987654321','ADMIN'),(0,4,'walterportadev@gmail.com','Walter','Porta','1112223333','ADMIN'),(0,5,'maurojim123@gmail.com','Mauro','Jim','4445556666','ADMIN'),(0,6,'pablogalindo90@gmail.com','Pablo','Galindo','7778889999','ADMIN'),(0,7,'ubuntuorganizationproyect@gmail.com','Ubuntu','Organization','33322211151','ADMIN'),(0,8,'grace.moore@example.com','Grace','Moore','6665554444','ADMIN'),(0,9,'hank.taylor@example.com','Hank','Taylor','9998887777','ADMIN'),(0,10,'ivy.anderson@example.com','Ivy','Anderson','2223334445','ADMIN');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
