@@ -39,7 +39,7 @@ public class ContactRequestImpl implements IContactRequestService {
 
     @Override
     public void update(ContactRequestDTO contactDTO, Long id) {
-        modelMapper.getConfiguration().isSkipNullEnabled();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
         var contactRequest = contactRepository.findById(id).get();
         modelMapper.map(contactDTO,contactRequest);
         contactRepository.save(contactRequest);
@@ -68,6 +68,22 @@ public class ContactRequestImpl implements IContactRequestService {
     public List<ContactRequestShowDTO> findByMicrobusinessId(Long idMicrobussiness) {
         validateMicrobusiness.existMicrobusiness(idMicrobussiness);
         List<ContactRequest> listContactRequests = contactRepository.findByMicroBusinessId(idMicrobussiness);
+        return listContactRequests.stream()
+                .map(contactRequest -> modelMapper.map(contactRequest, ContactRequestShowDTO.class))
+                .toList();
+    }
+
+    @Override
+    public List<ContactRequestShowDTO> findByManage() {
+        var listContactRequests = contactRepository.findByStateRequestTrue();
+        return listContactRequests.stream()
+                .map(contactRequest -> modelMapper.map(contactRequest, ContactRequestShowDTO.class))
+                .toList();
+    }
+
+    @Override
+    public List<ContactRequestShowDTO> findByNoManage() {
+        var listContactRequests = contactRepository.findByStateRequestFalse();
         return listContactRequests.stream()
                 .map(contactRequest -> modelMapper.map(contactRequest, ContactRequestShowDTO.class))
                 .toList();

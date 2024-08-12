@@ -2,8 +2,14 @@ package net.quintoimpacto.ubuntuapi.entity;
 
 
 
-import org.hibernate.annotations.DynamicInsert;
+import java.time.LocalDate;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,12 +46,24 @@ public class ContactRequest {
     private String email;
 
     
+    @CreationTimestamp
+    @DateTimeFormat(iso = DateTimeFormat.ISO.NONE, pattern = "dd-MM-yyyy")
+    @Column(name = "date_created", updatable = false)
+    private LocalDate dateCreated;
+
+    
+    @UpdateTimestamp
+    @DateTimeFormat(iso = DateTimeFormat.ISO.NONE,pattern = "dd-MM-yyyy")
+    @Column(name = "date_updated", updatable = true)
+    private LocalDate dateUpdated;
+
     private String phoneNumber;
 
     @NotNull(message = "Mensaje no puede estar vacío")
     private String message;
 
-    private String requestData;
+    @Column(columnDefinition = "boolean default false")
+    private boolean stateRequest;
 
     @ManyToOne
     @JoinColumn(name = "micro_id", nullable = true )
