@@ -20,4 +20,10 @@ public class ProvinceController {
         var setProvinceDTO = provinceService.findByName(name);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(setProvinceDTO);
     }
+
+    @GetMapping("/byCountry")
+    public ResponseEntity<List<ProvinceDTO>> getByCountryId(@RequestParam("countryId") Long countryId) {
+        List<ProvinceDTO> provinces = provinceService.findByCountryId(countryId);
+        return ResponseEntity.status(HttpStatus.OK).body(provinces);
+    }
 }
