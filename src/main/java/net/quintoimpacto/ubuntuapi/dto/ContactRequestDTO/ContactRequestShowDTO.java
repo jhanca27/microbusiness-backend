@@ -40,5 +40,4 @@ public class ContactRequestShowDTO {
 
     private String microBusinessName;
 
-    private Long microBusinessId;
 }
