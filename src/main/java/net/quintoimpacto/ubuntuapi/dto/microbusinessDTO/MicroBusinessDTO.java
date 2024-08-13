@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.quintoimpacto.ubuntuapi.dto.ImageDTO;
+import java.time.LocalDateTime;
 
 import java.util.List;
 
@@ -33,4 +34,6 @@ public class MicroBusinessDTO {
     private String provinceCountryName;
 
     private List<ImageDTO> images; // Lista de imágenes relacionadas
+
+    private LocalDateTime createdDate;
 }
