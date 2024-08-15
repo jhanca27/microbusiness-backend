@@ -116,6 +116,13 @@ public class MicroBusinessController {
         } 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<MicroBusinessDTO> getById(@PathVariable Long id) {
+        Optional<MicroBusinessDTO> microBusinessDTO = microBusinessService.findById(id);
+        return microBusinessDTO.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
     private String getUserPrincipal(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getPrincipal().toString();
