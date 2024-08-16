@@ -39,7 +39,7 @@ public class SecurityConfig {
                                 .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/findAll", "/microbusiness/").permitAll()
                                 .requestMatchers(HttpMethod.GET,  "/questions/initial", "/questions/subquestions/{answerId}", "/answer/all").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/contact/").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/contact/", "/test/sendWeeklyEmails").permitAll()
                                 .requestMatchers("/contact/**").hasRole("ADMIN")
                                 .requestMatchers("/user").hasRole("USER")
                                 .requestMatchers("/admin").hasRole("ADMIN")

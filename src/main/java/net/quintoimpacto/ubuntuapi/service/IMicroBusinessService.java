@@ -24,4 +24,5 @@ public interface IMicroBusinessService {
     public Optional<MicroBusiness> findByIdAndUserEmail(Long id, String email);
     public void delete(Long id);
     public List<MicroBusinessDTO> findAll();
+    public List<MicroBusinessDTO> getNewMicroBusinessesForTheWeek();
 }
