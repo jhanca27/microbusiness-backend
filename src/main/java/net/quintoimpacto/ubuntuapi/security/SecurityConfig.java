@@ -35,8 +35,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/", "/login/oauth2/**", "/error").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/findAll", "/microbusiness/", "microbusiness/{id}").permitAll()
-                                .requestMatchers(HttpMethod.GET,  "/questions/all", "/questions/getQuestions/{questionId}", "/answers/all", "/answers/getAnswers/{questionId}", "/publications/getAllPublications", "/publications/getAllPublications/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/countries", "/provinces", "/images", "images/{id}", "/microbusiness/findAll", "/microbusiness/").permitAll()
+                                .requestMatchers(HttpMethod.GET,  "/questions/initial", "/questions/subquestions/{answerId}", "/answer/all", "/publications/getAllPublications", "/publications/getAllPublications/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/contact/").permitAll()
                                 .requestMatchers("/contact/**").hasRole("ADMIN")
                                 .requestMatchers("/user").hasRole("USER")
