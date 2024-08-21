@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -73,7 +74,10 @@ public class ImageController {
             System.out.println("Imagen Base64 subida y guardada en la base de datos con ID: " + savedImage.getId()
                     + " y asociada a la publicación con ID: " + imageDTO.getPublicationId());
 
-            return ResponseEntity.ok(response); 
+            System.out.println("Imagen Base64 subida y guardada en la base de datos con ID: " + savedImage.getId()
+                    + " y asociada a la publicación con ID: " + imageDTO.getPublicationId());
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("No se pudo subir el archivo: " + e.getMessage());
         }
