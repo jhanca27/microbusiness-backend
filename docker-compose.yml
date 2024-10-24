@@ -12,7 +12,7 @@ services:
     networks:
       - ubuntu-net
     ports:
-      - "3306:3306"  # Asegúrate de que este puerto esté disponible
+      - "3307:3306"  # Asegúrate de que este puerto esté disponible
 
   ubuntu-back:
     build:
